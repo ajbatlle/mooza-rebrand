@@ -230,17 +230,17 @@
   /* story 9:16. Dos composiciones, según la foto.
      Apaisada (por defecto): arriba la foto de siete columnas; debajo la categoría a la izquierda y la cartelera a la derecha, el título,
      lugar, fecha y precio, una descripción de hasta tres líneas, la pestaña y el pie. Sin descripción, la foto gana dos filas.
-     Vertical (datos.foto.vertical o el diseño story-vertical): la foto ocupa cinco columnas y ocho filas, casi un 4:5, y no se recorta.
-     A su derecha, en dos columnas, la categoría y la cartelera arriba y la fecha y el precio abajo. Debajo, el título, el lugar, la pestaña y el pie. */
+     Vertical (datos.foto.vertical o el diseño story-vertical): la foto ocupa las siete columnas y diez filas, casi un 4:5, con los mismos textos
+     debajo y sin descripción. Todo cuelga de la columna 1 y la columna 5; la pestaña va en la fila del logo, a la derecha. */
   function story(d,n,f){
     var t=d.story,vertical=!!(d.foto&&d.foto.vertical),sobre=(d.foto&&d.foto.color)||d.color||'naranja',cta=t.cta||d.cta,
         base=fondo(d,f,[0,0,0,0],'naranja',true),color='background:'+campoFoto(d,'naranja'),
-        h=vertical?11:(t.descripcion?8:9),r=h+1;
+        h=vertical?10:(t.descripcion?7:9),r=h+1;
     return grid(16,base+cell(1,7,1,h,'mz-ph',fotoHtml(d),color)+
       cell(1,4,r,r,'mz-t-dato mz-etiqueta',t.categoria||'')+(t.cartelera?cell(5,7,r,r,'mz-t-dato mz-etiqueta',t.cartelera):'')+
       cell(1,7,r+1,r+2,'mz-t-titular mz-t-s',t.titulo)+
       cell(1,4,r+3,r+3,'mz-t-dato mz-dato-s',t.lugar||t.meta)+(t.lugar?cell(5,7,r+3,r+3,'mz-t-dato mz-dato-s',[t.fecha,t.precio].filter(Boolean).join('<br>')):'')+
-      (t.descripcion&&!vertical?cell(1,7,r+4,r+5,'mz-t-dato mz-desc',esc(t.descripcion)):'')+
+      (t.descripcion&&!vertical?cell(1,7,r+5,r+6,'mz-t-dato mz-desc',esc(t.descripcion)):'')+
       pestana(d,16,cta,sobre)+pie(16,null));
   }
 

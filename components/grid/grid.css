@@ -104,8 +104,8 @@
 .mz-t-titular.mz-t-s{font-size:var(--mz-t-sub);align-self:start}
 /* descripción: hasta tres líneas, con puntos suspensivos */
 .mz-grid>.mz-desc{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;align-self:start}
-/* pestaña: etiqueta de una línea, del alto del logo, que se ajusta al texto. En la story va a la derecha, en la fila del logo; en el A3, a la izquierda sobre el pie.
+/* pestaña: etiqueta de una línea, más baja que el logo, que se ajusta al texto. En la story va a la derecha, en la fila del logo; en el A3, a la izquierda sobre el pie.
    El color es el de la foto, así la foto y el aviso se leen como un solo bloque. */
 .mz-grid>.mz-pestana{display:flex;align-items:center;justify-content:flex-end;color:var(--mz-azul);opacity:1;font-weight:var(--mz-peso-dato)}
 .mz-grid>.mz-pestana-i{justify-content:flex-start}
-.mz-pestana span{padding:.5em .9em;line-height:1;white-space:nowrap}
+.mz-pestana span{font-size:.82em;padding:.42em .75em;line-height:1;white-space:nowrap}

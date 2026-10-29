@@ -109,16 +109,16 @@ Cada pieza se parte en dos zonas, una arriba y otra abajo (en 16:9, izquierda y 
 | semana | Arriba, sobre el color, el titular. Abajo, sobre gris, siete días con el destacado en acento | 4:5, A3, 1:1 |
 | agenda | Arriba, sobre el color, el día. Abajo, sobre gris, hasta tres eventos con una línea fina entre ellos | 4:5, A3 |
 | story | Arriba, la foto apaisada de siete columnas. Abajo, sobre gris: categoría y cartelera, título, lugar, fecha y precio, una descripción de hasta tres líneas y el pie con la pestaña | 9:16 |
-| story-vertical | Para fotos verticales: la foto a todo el ancho y once filas de alto, casi un 4:5, con casi nada de recorte. Abajo, categoría y cartelera, título, lugar, fecha, precio y el pie con la pestaña | 9:16 |
+| story-vertical | Para fotos verticales: la foto a todo el ancho y diez filas de alto, casi un 4:5, con casi nada de recorte. Abajo, categoría y cartelera, título, lugar, fecha, precio y el pie con la pestaña | 9:16 |
 | musa | Una musa cruzando el corte entre dos colores, con el logo y mooza.cl en el pie | Carta |
 
 ### Pestaña
 
-Un aviso de una línea, como "Pregunta los detalles por DM". Es una etiqueta del alto del logo que se ajusta al texto, de color plano y texto azul, apoyada en el margen derecho y en la misma fila del logo, así no ocupa una fila propia. Lleva el color de la foto, para que foto y aviso se lean como un solo bloque. Va en las historias y, a la izquierda y sobre el pie, en el afiche A3 de foto (`cta`).
+Un aviso de una línea, como "Pregunta los detalles por DM". Es una etiqueta más baja que el logo que se ajusta al texto, de color plano y texto azul, apoyada en el margen derecho y en la misma fila del logo, así no ocupa una fila propia. Lleva el color de la foto, para que foto y aviso se lean como un solo bloque. Va en las historias y, a la izquierda y sobre el pie, en el afiche A3 de foto (`cta`).
 
 ### Fotos verticales
 
-Las fotos son de organizadores y muchas son verticales (flyers de 4:5 y 3:4). En una celda apaisada se cortan mucho. Para historias usa `story-vertical`, que le da a la foto todo el ancho y once filas, casi un 4:5, y pone los textos debajo. `story` queda para fotos apaisadas.
+Las fotos son de organizadores y muchas son verticales (flyers de 4:5 y 3:4). En una celda apaisada se cortan mucho. Para historias usa `story-vertical`, que le da a la foto todo el ancho y diez filas, casi un 4:5, y pone los textos debajo. `story` queda para fotos apaisadas.
 
 El carrusel semanal de Instagram se arma con una portada (titular), una o más láminas de agenda por día y un cierre (titular). En 16:9 la columna 4 queda sobre el centro y va vacía.
 
