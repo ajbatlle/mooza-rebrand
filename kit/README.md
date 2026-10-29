@@ -7,8 +7,8 @@ Es la entrega del rebrand: cada recurso, en sus formatos (SVG, PNG y PDF) y, don
 | Carpeta | Contenido | Formatos |
 |---|---|---|
 | `logo/` | Horizontal, vertical e ícono en azul, blanco, amarillo y naranjo. `sobre-fondo/` los muestra sobre gris claro, azul, amarillo y naranjo. `base/` tiene la geometría original | `svg/`, `png/` (transparente) y `pdf/` |
-| `plantillas/sin-fondo/` | Los seis diseños planos, con texto editable: titular, número, foto, semana, agenda y story, en los formatos que corresponden (18 en total) | `svg/`, `png/` y `pdf/` |
-| `plantillas/con-fondo/` | Las mismas 18 con el fondo de marca: la capa de fondo va detrás y el texto sigue editable | `svg/`, `png/` (pieza completa con grano) y `pdf/` |
+| `plantillas/sin-fondo/` | Los siete diseños planos, con texto editable: titular, número, foto, semana, agenda, story y story-vertical, en los formatos que corresponden (19 en total) | `svg/`, `png/` y `pdf/` |
+| `plantillas/con-fondo/` | Las mismas 19 con el fondo de marca: la capa de fondo va detrás y el texto sigue editable | `svg/`, `png/` (pieza completa con grano) y `pdf/` |
 | `plantillas/mooza-carteles.svg` | Todas las plantillas sin fondo en un solo archivo, una fila por formato, cada una en un grupo con id (`titular-4x5`, `foto-a3`, etc.), y su vista previa en PNG | SVG y PNG |
 | `fondos/` | El fondo de marca solo, en cada color de base (gris claro, azul, amarillo y naranjo) y en los cinco formatos. `grano.png` es la textura de grano, repetible | `svg/` (formas, sin grano), `png/` y `pdf/` (con grano y borde suave) |
 | `ilustraciones/` | Las cuatro musas sin fondo y en lámina con el logo y mooza.cl. `originales/` tiene los dibujos tal como llegaron | `sin-fondo/png` y `pdf`, `laminas/png` y `pdf` |

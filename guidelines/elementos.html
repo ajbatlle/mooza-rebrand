@@ -29,6 +29,8 @@ body{margin:0;background:var(--mz-claro);color:var(--mz-azul);font-family:var(--
 .etq .mz-pie-logo::after{content:"logo";top:-2px;transform:translateY(-130%)}
 .etq .mz-fecha-pie::after{content:"fecha";left:auto;right:-2px;top:-2px;transform:translateY(-130%)}
 .etq .mz-dc-on::after{content:"día";top:auto;bottom:-2px;transform:translateY(100%)}
+.etq .mz-pestana{outline:2px solid #ff2d6f;outline-offset:2px;position:relative;overflow:visible}
+.etq .mz-pestana::after{content:"pestaña";position:absolute;right:-2px;top:-2px;transform:translateY(-100%);background:#ff2d6f;color:#fff;font:600 2.6cqw/1 var(--mz-grot);padding:.7cqw 1.2cqw;white-space:nowrap;letter-spacing:.02em;z-index:5}
 #b .mz-pie-logo,#b .mz-fecha-pie,#c .mz-pie-logo,#c .mz-fecha-pie,#d .mz-pie-logo,#d .mz-fecha-pie{outline:none}
 #b .mz-pie-logo::after,#b .mz-fecha-pie::after,#c .mz-pie-logo::after,#c .mz-fecha-pie::after,#d .mz-pie-logo::after,#d .mz-fecha-pie::after{display:none}
 .etq .mz-overlay{display:grid}
@@ -47,14 +49,18 @@ body{margin:0;background:var(--mz-claro);color:var(--mz-azul);font-family:var(--
     <div><div class="pz etq" id="b"></div></div>
     <div><div class="pz etq" id="c"></div></div>
     <div><div class="pz etq" id="d"></div></div>
+    <div><div class="pz etq" id="e"></div></div>
+    <div><div class="pz etq" id="f"></div></div>
   </div>
-  <p class="nota">Cada cartel se parte en dos zonas. Cada elemento ocupa sus celdas y nada las comparte.</p>
+  <p class="nota">Cada cartel se parte en dos zonas. Cada elemento ocupa sus celdas y nada las comparte. La pestaña mide cinco columnas y una fila, y va justo sobre el pie.</p>
 </main>
 <script>
 MoozaPoster.mount(document.getElementById('a'),'titular',{fondo:false});
 MoozaPoster.mount(document.getElementById('b'),'numero',{fondo:false});
 MoozaPoster.mount(document.getElementById('c'),'foto',{fondo:false});
 MoozaPoster.mount(document.getElementById('d'),'semana',{fondo:false});
+MoozaPoster.mount(document.getElementById('e'),'story',{fondo:false},'9x16');
+MoozaPoster.mount(document.getElementById('f'),'story-vertical',{fondo:false},'9x16');
 </script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 /* Mooza · generador de carteles sobre la grilla de siete días.
    Cada cartel se parte en dos zonas, una arriba y otra abajo (en horizontal, izquierda y derecha), y cada zona dice una sola cosa.
-   Siete diseños: titular, numero, foto, semana, agenda, story y musa.
+   Ocho diseños: titular, numero, foto, semana, agenda, story, story-vertical y musa.
    Uso:
      <link rel="stylesheet" href="styles.css">
      <script src="components/grid/poster.js"></script>
@@ -22,9 +22,10 @@
     semana:{'4x5':9,'a3':11,'1x1':8},
     agenda:{'4x5':9,'a3':11},
     story:{'9x16':16},
-    musa:{'carta':9}
+    musa:{'carta':9},
+    'story-vertical':{'9x16':16}
   };
-  var CLASES={titular:'mz-d-titular',numero:'mz-d-numero',foto:'mz-d-foto',semana:'mz-d-semana',agenda:'mz-d-agenda',story:'mz-d-story',musa:'mz-d-musa'};
+  var CLASES={titular:'mz-d-titular',numero:'mz-d-numero',foto:'mz-d-foto',semana:'mz-d-semana',agenda:'mz-d-agenda',story:'mz-d-story','story-vertical':'mz-d-story',musa:'mz-d-musa'};
 
   /* datos de ejemplo. Los eventos, salas y precios son inventados. */
   var EJEMPLO={
@@ -40,7 +41,10 @@
       {h:'23:30',t:'Noche de cumbia en vivo',v:'Club Subterráneo',p:'$6.000'}
     ]},
     musa:{src:'',corte:'v',colores:['gris','amarillo']},
-    story:{categoria:'Música',titulo:'Cuarteto de<br>jazz en vivo',meta:'Teatro del Parque<br>Viernes 30, 21:00<br>Desde $8.000'}
+    story:{categoria:'Música',cartelera:'Cartelera Música de raíz',titulo:'Concierto de Juan Falú en Sala Isidora Zegers',
+      lugar:'Sala Isidora Zegers • Santiago',fecha:'Martes 27 oct, 19:30',precio:'desde $15.895',
+      descripcion:'El destacado guitarrista y compositor argentino Juan Falú se presentará en Chile luego de diez años. Ofrecerá un recorrido de sus sesenta años…',
+      cta:'Pregunta los detalles por DM'}
   };
 
   /* filtro que vuelve una foto cualquiera una tinta azul con transparencia (oscuro opaco, claro transparente) */
@@ -186,8 +190,9 @@
     /* en horizontal el texto tiene tres columnas: el precio pasa a su propia línea */
     if(f==='16x9')return grid(n,fondo(d,f,[50,0,50,altura(f)],'amarillo',true)+mitad(campoFoto(d,'amarillo'),'mz-ph',fotoHtml(d))+cell(1,3,1,3,'mz-evento-t',txt.replace(' • desde','<br>desde'))+pie(n,null));
     var s=ARRIBA[f];
+    var cta=d.cta&&f==='a3'?d.cta:'';
     return grid(n,fondo(d,f,[0,0,0,0],'amarillo',true)+cell(1,7,1,s,'mz-ph',fotoHtml(d),'background:'+campoFoto(d,'amarillo'))+
-      cell(1,7,s+2,n-1,'mz-evento-t',txt)+pie(n,d.rango));
+      cell(1,7,s+2,cta?n-2:n-1,'mz-evento-t',txt)+pestana(d,n-1,cta,(d.foto&&d.foto.color)||d.color||'amarillo')+pie(n,d.rango));
   }
 
   /* semana: arriba, sobre el color, el titular. Abajo, sobre gris, siete días; el destacado lleva el acento. */
@@ -215,13 +220,38 @@
     return grid(n,h+pie(n,a.pag||''));
   }
 
-  /* story 9:16: arriba, la foto. Abajo, sobre gris, la categoría (con su acento), el nombre y los datos. */
+  /* pestaña: un aviso de una sola fila, justo sobre el pie. Mide cinco columnas, lleva un color plano distinto al de la foto
+     (si la foto va sobre naranjo, la pestaña es amarilla, y al revés) y el texto en azul, con un respiro lateral de 0,3 columnas. */
+  function pestana(d,fila,texto,sobre){
+    if(!texto)return '';
+    var c=(d.story&&d.story.ctaColor)||(sobre==='amarillo'?'naranja':'amarillo');
+    return cell(1,5,fila,fila,'mz-pestana mz-t-dato',esc(texto),'background:var(--mz-'+c+')');
+  }
+  function largo(s){return String(s||'').replace(/<[^>]*>/g,'').length}
+  /* story 9:16. Dos composiciones, según la foto.
+     Apaisada (por defecto): arriba la foto de siete columnas; debajo la categoría a la izquierda y la cartelera a la derecha, el título,
+     lugar, fecha y precio, una descripción de hasta tres líneas, la pestaña y el pie. Sin descripción, la foto gana dos filas.
+     Vertical (datos.foto.vertical o el diseño story-vertical): la foto ocupa cinco columnas y ocho filas, casi un 4:5, y no se recorta.
+     A su derecha, en dos columnas, la categoría y la cartelera arriba y la fecha y el precio abajo. Debajo, el título, el lugar, la pestaña y el pie. */
   function story(d,n,f){
-    var s=ARRIBA[f],t=d.story;
-    return grid(16,fondo(d,f,[0,0,0,0],'naranja',true)+cell(1,7,1,s,'mz-ph',fotoHtml(d),'background:'+campoFoto(d,'naranja'))+
-      cell(1,7,s+2,s+2,'mz-t-dato mz-etiqueta',t.categoria)+
-      cell(1,7,s+3,s+5,'mz-t-titular',t.titulo)+
-      cell(1,5,s+6,s+7,'mz-t-dato',t.meta)+pie(16,null));
+    var t=d.story,vertical=!!(d.foto&&d.foto.vertical),sobre=(d.foto&&d.foto.color)||d.color||'naranja',cta=t.cta||d.cta,
+        base=fondo(d,f,[0,0,0,0],'naranja',true),color='background:'+campoFoto(d,'naranja'),
+        meta=t.lugar?[t.lugar,t.fecha,t.precio].filter(Boolean).join('<br>'):t.meta;
+    if(vertical){
+      return grid(16,base+cell(1,5,1,8,'mz-ph',fotoHtml(d),color)+
+        cell(6,7,1,4,'mz-t-dato mz-lado',(t.categoria||'')+(t.cartelera?'<br>'+t.cartelera:''))+
+        cell(6,7,6,8,'mz-t-dato mz-lado mz-lado-b',[t.fecha,t.precio].filter(Boolean).join('<br>'))+
+        cell(1,7,10,12,'mz-t-titular'+(largo(t.titulo)>32?' mz-t-s':''),t.titulo)+
+        cell(1,7,13,14,'mz-t-dato',t.lugar||t.meta)+
+        pestana(d,15,cta,sobre)+pie(16,null));
+    }
+    var h=t.descripcion?5:7,r=h+2;
+    return grid(16,base+cell(1,7,1,h,'mz-ph',fotoHtml(d),color)+
+      cell(1,3,r,r,'mz-t-dato mz-etiqueta',t.categoria||'')+(t.cartelera?cell(4,7,r,r,'mz-t-dato mz-etiqueta mz-etiqueta-d',t.cartelera):'')+
+      cell(1,7,r+1,r+3,'mz-t-titular mz-t-s',t.titulo)+
+      cell(1,7,r+4,r+5,'mz-t-dato',meta)+
+      (t.descripcion?cell(1,7,r+6,r+7,'mz-t-dato mz-desc',esc(t.descripcion)):'')+
+      pestana(d,15,cta,sobre)+pie(16,null));
   }
 
   /* musa: una ilustración sola que cruza el corte entre dos colores, con el pie de siempre (logo a la izquierda, mooza.cl a la derecha).
@@ -239,10 +269,10 @@
       (m.src?'<img class="mz-musa-img" src="'+m.src+'" alt="'+(m.alt||'')+'" style="left:'+x+'%;top:'+y+'%;width:'+w+'%">':'')+pie(n,'mooza.cl'));
   }
 
-  var BUILD={titular:titular,numero:numero,foto:foto,semana:semana,agenda:agenda,story:story,musa:musa};
+  var BUILD={titular:titular,numero:numero,foto:foto,semana:semana,agenda:agenda,story:story,'story-vertical':function(d,n,f){var o={};for(var k in d)o[k]=d[k];o.foto=Object.assign({},d.foto,{vertical:true});return story(o,n,f)},musa:musa};
 
   function merge(d){var o={};for(var k in EJEMPLO)o[k]=EJEMPLO[k];for(var j in (d||{}))o[j]=d[j];return o}
-  function formatoDe(tipo,formato){return formato||(tipo==='story'?'9x16':'4x5')}
+  function formatoDe(tipo,formato){return formato||(tipo.indexOf('story')===0?'9x16':'4x5')}
   function filas(tipo,formato){
     var n=ROWS[tipo]&&ROWS[tipo][formatoDe(tipo,formato)];
     if(!n)throw new Error('El diseño "'+tipo+'" no existe en el formato '+formatoDe(tipo,formato));

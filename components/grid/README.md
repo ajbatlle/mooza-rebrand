@@ -1,6 +1,6 @@
 # Cartel sobre grilla
 
-Genera los siete diseños de Mooza sobre la grilla de siete columnas. Los estilos están en `grid.css` y el generador en `poster.js`. Requiere `styles.css` (tokens de color, tipo y grilla).
+Genera los ocho diseños de Mooza sobre la grilla de siete columnas. Los estilos están en `grid.css` y el generador en `poster.js`. Requiere `styles.css` (tokens de color, tipo y grilla).
 
 ## API
 
@@ -13,7 +13,7 @@ MoozaPoster.ROWS                             // filas por diseño y formato
 MoozaPoster.EJEMPLO                         // datos de ejemplo
 ```
 
-Diseños: `titular`, `numero`, `foto`, `semana`, `agenda`, `story` y `musa`.
+Diseños: `titular`, `numero`, `foto`, `semana`, `agenda`, `story`, `story-vertical` y `musa`.
 
 Formatos (tercer parámetro, `4x5` por defecto y `9x16` para story):
 
@@ -22,7 +22,7 @@ Formatos (tercer parámetro, `4x5` por defecto y `9x16` para story):
 | titular, numero, foto | `4x5`, `a3`, `1x1`, `16x9` |
 | semana | `4x5`, `a3`, `1x1` |
 | agenda | `4x5`, `a3` |
-| story | `9x16` |
+| story, story-vertical | `9x16` |
 | musa | `carta` |
 
 Un diseño que no existe en un formato lanza un error.
@@ -30,6 +30,15 @@ Un diseño que no existe en un formato lanza un error.
 ## Datos
 
 Los campos que no pases se toman de `MoozaPoster.EJEMPLO`: `color` (la zona de color: `azul`, `amarillo` o `naranja`; cada diseño tiene el suyo por defecto: titular azul, número amarillo, semana naranja y agenda amarillo; el texto sobre amarillo y naranjo va en azul), `rango`, `corto`, `titular`, `dias` y `diaDestacado` (semana), `evento` (foto), `agenda` (`dia`, `n`, `pag` y hasta tres `eventos` con `h`, `t`, `v`, `p`, `f`) y `story`.
+
+## Historias y pestaña
+
+`story` y `story-vertical` toman estos campos de `datos.story`: `categoria`, `cartelera` (la colección, a la derecha de la categoría), `titulo`, `lugar`, `fecha`, `precio`, `descripcion` (hasta tres líneas; sin ella, la foto de `story` gana dos filas) y `cta` (el texto de la pestaña). `meta` sigue funcionando como texto libre de tres líneas.
+
+- `story`: foto apaisada de siete columnas por cinco filas, o por siete si no hay descripción.
+- `story-vertical`: foto de cinco columnas por ocho filas (casi 4:5). También se activa con `datos.foto.vertical: true`.
+- La pestaña mide cinco columnas y una fila, justo sobre el pie. Su color es el opuesto al de la foto; `datos.story.ctaColor` lo fuerza. En el afiche A3 de `foto` se activa con `datos.cta`.
+- Los títulos de más de 32 caracteres bajan al tamaño de subtítulo para que quepan en dos líneas.
 
 ## Reglas
 

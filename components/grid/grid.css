@@ -97,5 +97,15 @@
 .mz-hora-on span{padding-bottom:.2em;border-bottom:.2em solid var(--mz-naranja)}
 
 /* story */
-/* categoría de la story: texto simple sobre el título, en el margen */
+/* categoría de la story: texto simple sobre el título, en el margen; la cartelera va a la derecha */
 .mz-etiqueta{align-self:end;font-weight:var(--mz-peso-dato)}
+.mz-etiqueta-d{text-align:right}
+/* título más chico para los nombres largos y en la story apaisada */
+.mz-t-titular.mz-t-s{font-size:var(--mz-t-sub)}
+/* descripción: hasta tres líneas, con puntos suspensivos */
+.mz-grid>.mz-desc{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;align-self:start}
+/* columna lateral de la story vertical: arriba la categoría y la cartelera, abajo la fecha y el precio */
+.mz-lado{align-self:start}
+.mz-lado-b{align-self:end}
+/* pestaña: aviso de una fila sobre el pie. Cinco columnas, color plano, texto azul contenido con respiro lateral de 0,3 columnas */
+.mz-grid>.mz-pestana{display:flex;align-items:center;padding-inline:calc(var(--mz-col)*.3*1cqw);color:var(--mz-azul);opacity:1;white-space:nowrap;overflow:hidden;font-weight:var(--mz-peso-dato)}
