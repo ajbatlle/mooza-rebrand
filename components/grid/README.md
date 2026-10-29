@@ -33,12 +33,12 @@ Los campos que no pases se toman de `MoozaPoster.EJEMPLO`: `color` (la zona de c
 
 ## Historias y pestaña
 
-`story` y `story-vertical` toman estos campos de `datos.story`: `categoria`, `cartelera` (la colección, a la derecha de la categoría), `titulo`, `lugar`, `fecha`, `precio`, `descripcion` (hasta tres líneas; sin ella, la foto de `story` gana dos filas) y `cta` (el texto de la pestaña). `meta` sigue funcionando como texto libre de tres líneas.
+`story` y `story-vertical` toman estos campos de `datos.story`: `categoria`, `cartelera` (la colección, desde la columna 5, a la derecha de la categoría), `titulo`, `lugar`, `fecha`, `precio`, `descripcion` (hasta tres líneas; sin ella, la foto de `story` gana una fila) y `cta` (el texto de la pestaña). `meta` sigue funcionando como texto libre de tres líneas.
 
-- `story`: foto apaisada de siete columnas por cinco filas, o por siete si no hay descripción.
-- `story-vertical`: foto de cinco columnas por ocho filas (casi 4:5). También se activa con `datos.foto.vertical: true`.
-- La pestaña mide cinco columnas y una fila, justo sobre el pie. Su color es el opuesto al de la foto; `datos.story.ctaColor` lo fuerza. En el afiche A3 de `foto` se activa con `datos.cta`.
-- Los títulos de más de 32 caracteres bajan al tamaño de subtítulo para que quepan en dos líneas.
+- Las dos historias cuelgan de dos anclas: la columna 1 (categoría, título, lugar) y la columna 5 (cartelera, fecha y precio). La foto ocupa las siete columnas.
+- `story`: foto apaisada de ocho filas (nueve si no hay descripción), con la descripción bajo los datos.
+- `story-vertical`: foto de once filas, casi un 4:5, con los mismos textos pero sin descripción. También se activa con `datos.foto.vertical: true`.
+- La pestaña es una etiqueta de una línea, del alto del logo, que se ajusta al texto y se apoya en el margen derecho, en la misma fila del logo. Su color es el de la foto; `datos.story.ctaColor` lo cambia. En el afiche A3 de `foto` va a la izquierda, sobre el pie, y se activa con `datos.cta`.
 
 ## Reglas
 

@@ -192,7 +192,7 @@
     var s=ARRIBA[f];
     var cta=d.cta&&f==='a3'?d.cta:'';
     return grid(n,fondo(d,f,[0,0,0,0],'amarillo',true)+cell(1,7,1,s,'mz-ph',fotoHtml(d),'background:'+campoFoto(d,'amarillo'))+
-      cell(1,7,s+2,cta?n-2:n-1,'mz-evento-t',txt)+pestana(d,n-1,cta,(d.foto&&d.foto.color)||d.color||'amarillo')+pie(n,d.rango));
+      cell(1,7,s+2,cta?n-2:n-1,'mz-evento-t',txt)+pestana(d,n-1,cta,(d.foto&&d.foto.color)||d.color||'amarillo',true)+pie(n,d.rango));
   }
 
   /* semana: arriba, sobre el color, el titular. Abajo, sobre gris, siete días; el destacado lleva el acento. */
@@ -222,12 +222,11 @@
 
   /* pestaña: un aviso de una sola fila, justo sobre el pie. Mide cinco columnas, lleva un color plano distinto al de la foto
      (si la foto va sobre naranjo, la pestaña es amarilla, y al revés) y el texto en azul, con un respiro lateral de 0,3 columnas. */
-  function pestana(d,fila,texto,sobre){
+  function pestana(d,fila,texto,sobre,izq){
     if(!texto)return '';
-    var c=(d.story&&d.story.ctaColor)||(sobre==='amarillo'?'naranja':'amarillo');
-    return cell(1,5,fila,fila,'mz-pestana mz-t-dato',esc(texto),'background:var(--mz-'+c+')');
+    var c=(d.story&&d.story.ctaColor)||sobre;
+    return cell(izq?1:3,7,fila,fila,'mz-pestana mz-t-dato'+(izq?' mz-pestana-i':''),'<span style="background:var(--mz-'+c+')">'+esc(texto)+'</span>');
   }
-  function largo(s){return String(s||'').replace(/<[^>]*>/g,'').length}
   /* story 9:16. Dos composiciones, según la foto.
      Apaisada (por defecto): arriba la foto de siete columnas; debajo la categoría a la izquierda y la cartelera a la derecha, el título,
      lugar, fecha y precio, una descripción de hasta tres líneas, la pestaña y el pie. Sin descripción, la foto gana dos filas.
@@ -236,22 +235,13 @@
   function story(d,n,f){
     var t=d.story,vertical=!!(d.foto&&d.foto.vertical),sobre=(d.foto&&d.foto.color)||d.color||'naranja',cta=t.cta||d.cta,
         base=fondo(d,f,[0,0,0,0],'naranja',true),color='background:'+campoFoto(d,'naranja'),
-        meta=t.lugar?[t.lugar,t.fecha,t.precio].filter(Boolean).join('<br>'):t.meta;
-    if(vertical){
-      return grid(16,base+cell(1,5,1,8,'mz-ph',fotoHtml(d),color)+
-        cell(6,7,1,4,'mz-t-dato mz-lado',(t.categoria||'')+(t.cartelera?'<br>'+t.cartelera:''))+
-        cell(6,7,6,8,'mz-t-dato mz-lado mz-lado-b',[t.fecha,t.precio].filter(Boolean).join('<br>'))+
-        cell(1,7,10,12,'mz-t-titular'+(largo(t.titulo)>32?' mz-t-s':''),t.titulo)+
-        cell(1,7,13,14,'mz-t-dato',t.lugar||t.meta)+
-        pestana(d,15,cta,sobre)+pie(16,null));
-    }
-    var h=t.descripcion?5:7,r=h+2;
+        h=vertical?11:(t.descripcion?8:9),r=h+1;
     return grid(16,base+cell(1,7,1,h,'mz-ph',fotoHtml(d),color)+
-      cell(1,3,r,r,'mz-t-dato mz-etiqueta',t.categoria||'')+(t.cartelera?cell(4,7,r,r,'mz-t-dato mz-etiqueta mz-etiqueta-d',t.cartelera):'')+
-      cell(1,7,r+1,r+3,'mz-t-titular mz-t-s',t.titulo)+
-      cell(1,7,r+4,r+5,'mz-t-dato',meta)+
-      (t.descripcion?cell(1,7,r+6,r+7,'mz-t-dato mz-desc',esc(t.descripcion)):'')+
-      pestana(d,15,cta,sobre)+pie(16,null));
+      cell(1,4,r,r,'mz-t-dato mz-etiqueta',t.categoria||'')+(t.cartelera?cell(5,7,r,r,'mz-t-dato mz-etiqueta',t.cartelera):'')+
+      cell(1,7,r+1,r+2,'mz-t-titular mz-t-s',t.titulo)+
+      cell(1,4,r+3,r+3,'mz-t-dato mz-dato-s',t.lugar||t.meta)+(t.lugar?cell(5,7,r+3,r+3,'mz-t-dato mz-dato-s',[t.fecha,t.precio].filter(Boolean).join('<br>')):'')+
+      (t.descripcion&&!vertical?cell(1,7,r+4,r+5,'mz-t-dato mz-desc',esc(t.descripcion)):'')+
+      pestana(d,16,cta,sobre)+pie(16,null));
   }
 
   /* musa: una ilustración sola que cruza el corte entre dos colores, con el pie de siempre (logo a la izquierda, mooza.cl a la derecha).
