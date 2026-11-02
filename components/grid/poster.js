@@ -306,12 +306,16 @@
     if(enBanner&&!arriba)h+=cell(1,7,ban-1,ban,'mz-vineta mz-vineta-abajo',img);
     (c.eventos||[]).slice(0,tope*2).forEach(function(e,i){
       var col=i<por?1:5,r=ev0+i%por;
-      h+=cell(col,col+2,r,r,'mz-ev','<span class="mz-ev-k">'+tx(e.k)+'</span><span class="mz-ev-t" data-lineas="2">'+tx(e.t)+'</span><span class="mz-ev-l">'+tx([e.l,e.h].filter(Boolean).join(' • '))+'</span>');
+      h+=cell(col,col+2,r,r,'mz-ev'+(compacta?' mz-ev-c'+(r===ev0?' mz-ev-p':''):''),'<span class="mz-ev-k">'+tx(e.k)+'</span><span class="mz-ev-t" data-lineas="2">'+tx(e.t)+'</span><span class="mz-ev-l">'+tx([e.l,e.h].filter(Boolean).join(' • '))+'</span>');
     });
     /* viñeta opcional (kit/ilustraciones/vinetas), a sangre. Por defecto va en las dos últimas filas si quedan libres (hasta seis eventos y sin bajada).
        En la lámina compacta va en la última fila de la lista y se pasa un poco sobre las separaciones */
     if(v&&!enBanner&&!c.bajada){
-      if(compacta)h+=cell(1,7,n-1,n-1,'mz-vineta mz-vineta-c',img);
+      if(compacta){
+        /* alto disponible: la fila de abajo más lo que la viñeta baja hacia el pie; con márgenes grandes la fila es más baja y el friso se achica en vez de pisar la lista */
+        var m=d._m||6,g=d._g||1.2,fh=(altura(f)-2*m-(n-1)*g)/n,cl=(100-2*m-6*g)/7;
+        h+=cell(1,7,n-1,n-1,'mz-vineta mz-vineta-c',img,'--mz-vh:'+r2(fh+.34*cl)+';--mz-bajo:'+r2(.34*cl)+'cqw');
+      }
       else if(por<=3)h+=cell(1,7,n-2,n-1,'mz-vineta',img);
     }
     if(c.bajada)h+=cell(1,7,8,8,'mz-t-dato mz-cart-baj',tx(c.bajada),'',' data-lineas="2"');

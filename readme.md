@@ -106,6 +106,8 @@ Van siempre a sangre, de borde a borde del cartel, como las zonas de color, y so
 - Abajo, sobre el gris (por defecto): las dos últimas filas, entre la lista y el pie, centrada. Solo si quedan libres: hasta seis eventos y sin bajada.
 - En el banner (`en: 'banner'`), solo si el banner es amarillo o naranjo, porque la tinta azul se pierde sobre azul. El banner gana una fila y caben hasta ocho eventos. El telón (`ancla: 'arriba'`) cuelga del borde de arriba y el nombre queda debajo. El público (`ancla: 'abajo'`) se apoya en el corte con el gris, bajo el nombre. La cinta flota y se ve mejor abajo, sobre el gris.
 
+Con diez eventos y viñeta hay una lámina compacta (`compacta: true`): el mes y la página pasan a una línea arriba del título, dentro del banner, la lista sube una fila y la viñeta ocupa la fila de abajo, entre la lista y el pie. El título baja un paso de tamaño si ocupa dos líneas, y la primera fila de cada columna no lleva línea para no quedar pegada al color. Es la lámina más densa del sistema: con hasta seis eventos conviene la versión normal. Con márgenes grandes el friso se achica en vez de pisar la lista.
+
 Reglas: una viñeta por lámina. Nunca sobre texto, nunca sobre un banner azul y nunca en blanco o invertida. Es la única ilustración que va sobre el gris. La prohibición de la musa en el banner no la alcanza: la viñeta sí puede ir en el banner, con esas condiciones.
 
 ### Poleras

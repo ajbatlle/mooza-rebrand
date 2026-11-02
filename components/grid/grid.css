@@ -154,5 +154,8 @@
 .mz-cart-t-c{margin-top:calc(var(--mz-col)*.5*1cqw)}
 .mz-cart-t-c.mz-t-titular[data-lineas]{--mz-tam:calc(var(--mz-col)*.78*1cqw)}
 .mz-cart-mes-c{align-self:start}
-.mz-vineta-c{overflow:visible}
-.mz-vineta-c img{max-height:none}
+/* en la compacta la lista no empieza pegada al color: sin línea en la primera fila de cada columna y bajada un poco; la viñeta baja con ella */
+.mz-ev-c{margin-top:calc(var(--mz-col)*.17*1cqw)}
+.mz-ev-p{border-top:0}
+.mz-vineta-c{overflow:visible;align-items:flex-end;margin-bottom:calc(var(--mz-bajo)*-1)}
+.mz-vineta-c img{max-height:calc(var(--mz-vh)*1cqw);width:auto;max-width:100%}
