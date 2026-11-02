@@ -183,13 +183,18 @@
     return cell(1,2,n,n,'mz-pie-logo'+k,LOGO)+(texto?cell(texto.length>14?4:5,7,n,n,'mz-t-dato mz-fecha-pie'+k,texto):'');
   }
 
+  /* líneas que caben en las filas 1 a s de la zona de arriba con un texto de tamaño `tam` (en cqw) y interlínea .9 */
+  function lineasZona(d,f,n,s,tam){
+    var m=d._m||6,g=d._g||1.2,fh=(altura(f)-2*m-(n-1)*g)/n;
+    return Math.max(1,Math.floor((s*fh+(s-1)*g)/(tam*.9)+.05));
+  }
   /* titular: arriba, el titular sobre el color. Abajo, sobre gris, la fecha. */
   function titular(d,n,f){
     var k=tinta(d,'azul');
     if(f==='16x9')return grid(n,mitad(campo(d,'azul'))+fondo(d,f,[50,0,50,altura(f)],'azul')+cell(1,3,1,3,'mz-t-grande',tx(d.titular))+cell(5,7,1,1,'mz-t-sub'+k,tx(d.rango))+
       cell(1,2,n,n,'mz-pie-logo',LOGO)+cell(5,7,n,n,'mz-t-dato mz-fecha-pie'+k,'mooza.cl'));
     var s=ARRIBA_TITULAR[f];
-    return grid(n,(hayFoto(d)?fondo(d,f,[0,0,100,yZona(d,f,n,s,true)],'azul',true):'')+zonaA(s,hayFoto(d)?campoFoto(d,'amarillo'):campo(d,'azul'),hayFoto(d)?fotoHtml(d):'')+(hayFoto(d)?'':fondo(d,f,[0,0,100,yZona(d,f,n,s,true)],'azul'))+cell(1,7,1,s,'mz-t-grande'+(hayFoto(d)?sobreFoto(d):k),tx(d.titular))+
+    return grid(n,(hayFoto(d)?fondo(d,f,[0,0,100,yZona(d,f,n,s,true)],'azul',true):'')+zonaA(s,hayFoto(d)?campoFoto(d,'amarillo'):campo(d,'azul'),hayFoto(d)?fotoHtml(d):'')+(hayFoto(d)?'':fondo(d,f,[0,0,100,yZona(d,f,n,s,true)],'azul'))+cell(1,7,1,s,'mz-t-grande'+(hayFoto(d)?sobreFoto(d):k),tx(d.titular),'',' data-lineas="'+lineasZona(d,f,n,s,1.4*((100-2*(d._m||6)-6*(d._g||1.2))/7))+'"')+
       (f==='9x16'&&d.bajada?cell(1,7,s+2,n-2,'mz-t-sub mz-abajo mz-bajada',tx(d.bajada),'',' data-lineas="'+(n-2-s-1)*1+'"'):cell(1,7,s+2,s+2,'mz-t-sub mz-abajo',tx(d.rango)))+pie(n,'mooza.cl'));
   }
 
@@ -234,7 +239,7 @@
       var r=ini+i*paso,k=tres?' mz-e3':'';
       if(tres&&i)h+=cell(1,7,r,r,'mz-sep');
       h+=cell(1,2,r,r,'mz-hora'+k+(e.f?' mz-hora-on':''),e.h?'<span>'+tx(e.h)+'</span>':'')+
-         cell(3,7,r,r+1,'mz-evento-t'+k,'<span class="mz-t-texto">'+tx(e.t)+'</span><span class="mz-t-dato">'+tx(e.v)+(e.p?' • '+tx(e.p):'')+'</span>');
+         cell(3,7,r,r+1,'mz-evento-t'+k,'<span class="mz-t-texto" data-lineas="2">'+tx(e.t)+'</span><span class="mz-t-dato">'+tx(e.v)+(e.p?' • '+tx(e.p):'')+'</span>');
     });
     return grid(n,h+pie(n,tx(a.pag||'')));
   }
@@ -258,7 +263,7 @@
     return grid(16,base+cell(1,7,1,h,'mz-ph',fotoHtml(d),color)+
       cell(1,4,r,r,'mz-t-dato mz-etiqueta',tx(t.categoria))+(t.cartelera?cell(5,7,r,r,'mz-t-dato mz-etiqueta',tx(t.cartelera)):'')+
       cell(1,7,r+1,r+2,'mz-t-titular mz-t-s',tx(t.titulo),'',' data-lineas="2"')+
-      cell(1,4,r+3,r+3,'mz-t-dato mz-dato-s',tx(t.lugar||t.meta))+(t.lugar?cell(5,7,r+3,r+3,'mz-t-dato mz-dato-s',[t.fecha,t.precio].filter(Boolean).map(tx).join('<br>')):'')+
+      cell(1,4,r+3,r+3,'mz-t-dato mz-dato-s',tx(t.lugar||t.meta),'',' data-lineas="2"')+(t.lugar?cell(5,7,r+3,r+3,'mz-t-dato mz-dato-s',[t.fecha,t.precio].filter(Boolean).map(tx).join('<br>'),'',' data-lineas="2"'):'')+
       (t.descripcion&&!vertical?cell(1,7,r+5,r+6,'mz-t-dato mz-desc',esc(t.descripcion)):'')+
       pestana(d,16,cta,sobre)+pie(16,null));
   }
@@ -279,7 +284,7 @@
       var col=i<por?1:5,r=4+i%por;
       h+=cell(col,col+2,r,r,'mz-ev','<span class="mz-ev-k">'+tx(e.k)+'</span><span class="mz-ev-t" data-lineas="2">'+tx(e.t)+'</span><span class="mz-ev-l">'+tx([e.l,e.h].filter(Boolean).join(' • '))+'</span>');
     });
-    if(c.bajada)h+=cell(1,7,8,8,'mz-t-dato mz-cart-baj',tx(c.bajada));
+    if(c.bajada)h+=cell(1,7,8,8,'mz-t-dato mz-cart-baj',tx(c.bajada),'',' data-lineas="2"');
     return grid(n,h+pie(n,tx(c.pie||'mooza.cl')));
   }
 
@@ -291,7 +296,7 @@
     for(var i=0;i<28;i++)mos+='<div class="mz-mini">'+(fs[i]?fotoHtml({foto:fs[i]}):'')+'</div>';
     h+=cell(1,7,1,4,'mz-mosaico',mos,'background:var(--mz-'+col+')');
     return grid(n,h+cell(1,7,5,6,'mz-t-titular mz-mes-t',tx(m.titulo),'',' data-lineas="1"')+
-      cell(1,7,7,7,'mz-t-dato mz-mes-dato',tx(m.dato))+(m.bajada?cell(1,7,8,8,'mz-t-dato mz-mes-baj',tx(m.bajada)):'')+pie(n,tx(m.pie||'mooza.cl')));
+      cell(1,7,7,7,'mz-t-dato mz-mes-dato',tx(m.dato),'',' data-lineas="2"')+(m.bajada?cell(1,7,8,8,'mz-t-dato mz-mes-baj',tx(m.bajada),'',' data-lineas="2"'):'')+pie(n,tx(m.pie||'mooza.cl')));
   }
 
   /* ajuste de texto. Cada texto que puede desbordar lleva data-lineas (el máximo de líneas de su celda).

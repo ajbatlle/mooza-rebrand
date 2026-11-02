@@ -89,6 +89,14 @@ Puede ir en la celda de foto (diseños `foto` y `story`, y la mitad derecha del 
 
 Cuatro musas, dibujadas como grabado de línea fina en tinta azul con transparencia, flotando, sin escena ni marco: Euterpe (música), Talía (teatro), Terpsícore (danza) y Calíope (letras). Se usan solo sobre una zona de color o sobre el corte entre dos colores, nunca sobre una foto. Los dibujos y sus prompts están en `kit/ilustraciones/`.
 
+Prohibido, sin excepciones:
+- La musa en el banner de una lámina de datos (`agenda`, `cartelera`). Queda chica, desequilibra el titular y no funciona. Las láminas de datos no llevan ilustración: el titular y la lista son los protagonistas.
+- La musa blanca o invertida. La musa es tinta azul y no se da vuelta.
+- La musa sobre azul. Sobre azul la tinta se pierde, así que no hay musa sobre azul.
+- La musa sobre una foto.
+
+La musa va solo en el diseño `musa` y como respaldo en una celda de color cuando no hay foto, siempre sobre amarillo o naranjo.
+
 ### Poleras
 
 Estampa en serigrafía de dos tintas sobre polera gris claro: un círculo de color, naranjo o amarillo alternados entre musas, y las líneas azules encima, en multiplicar. El círculo va en el centro de los cuatro bloques (titular arriba, categoría y nombre a los lados, logo con mooza.cl abajo) y la musa completa queda centrada entre el titular y el logo. Titular en Geist 400 y mucho blanco. Frases: "Esta semana pasan cosas." y "Esta semana sales." Capas de impresión y maquetas en `kit/poleras/`.
@@ -103,14 +111,22 @@ Cada pieza se parte en dos zonas, una arriba y otra abajo (en 16:9, izquierda y 
 
 | Diseño | Qué muestra | Formatos |
 |---|---|---|
-| titular | Arriba, el titular sobre el color. Abajo, sobre gris, la fecha | 4:5, A3, 1:1, 16:9 |
+| titular | Arriba, el titular sobre el color. Abajo, sobre gris, la fecha. En 9:16, una bajada de hasta cinco líneas en vez de la fecha | 4:5, A3, 1:1, 16:9, 9:16 |
 | número | Arriba, sobre gris, el rango de la semana, enorme. Abajo, sobre el color, qué es | 4:5, A3, 1:1, 16:9 |
 | foto | Arriba, la foto. Abajo, sobre gris, el nombre del evento y sus datos | 4:5, A3, 1:1, 16:9 |
 | semana | Arriba, sobre el color, el titular. Abajo, sobre gris, siete días con el destacado en acento | 4:5, A3, 1:1 |
 | agenda | Arriba, sobre el color, el día. Abajo, sobre gris, hasta tres eventos con una línea fina entre ellos | 4:5, A3 |
+| cartelera | Arriba, sobre el color, el nombre de la cartelera. Abajo, sobre gris, el mes, la página y hasta diez eventos en dos columnas, uno por fila y con una línea fina arriba | 4:5 |
+| mes | La portada del post del mes. Arriba, un mosaico de hasta 28 fotos, una por celda de la grilla. Abajo, sobre gris, el mes, un dato y una bajada | 4:5 |
 | story | Arriba, la foto apaisada de siete columnas. Abajo, sobre gris: categoría y cartelera, título, lugar, fecha y precio, una descripción de hasta tres líneas y el pie con la pestaña | 9:16 |
 | story-vertical | Para fotos verticales: la foto a todo el ancho y diez filas de alto, casi cuadrada (0,93:1), donde un 4:5 pierde un 14 % del alto. Abajo, categoría y cartelera, título, lugar, fecha, precio y el pie con la pestaña | 9:16 |
 | musa | Una musa cruzando el corte entre dos colores, con el logo y mooza.cl en el pie | Carta |
+
+### Cartelera del mes
+
+El post del mes se arma con `mes` (la portada) y una o más láminas `cartelera`. Las láminas llevan mucha información y está bien: la grilla se reparte en dos columnas, la 1 a la 3 y la 5 a la 7, con la columna 4 libre. Cada evento ocupa una fila: arriba el día (y la categoría si hace falta), después el nombre, hasta dos líneas, y al final el lugar y la hora. Caben diez eventos por lámina y ocho si lleva bajada. Para eso usa dos pasos de tamaño de densidad (`--mz-t-lista` y `--mz-t-nota`), solo en este diseño.
+
+La portada `mes` nunca es azul: las fotos son tinta azul y se pierden sobre azul. El mosaico usa siete columnas por cuatro filas, una foto por celda, y el medianil queda del color de la pieza. La lámina `cartelera` puede ir sobre cualquiera de los tres colores y sobre azul el titular va en blanco.
 
 ### Pestaña
 
@@ -135,6 +151,8 @@ El carrusel semanal de Instagram se arma con una portada (titular), una o más l
 ```
 
 Los datos tienen la forma de `MoozaPoster.EJEMPLO`. Los eventos, salas y precios de ejemplo son inventados. Opciones y detalles en `components/grid/README.md`.
+
+Los datos se entregan como texto plano: el generador escapa todo (un `&` o un `<` en el nombre de un evento no rompe la lámina) y solo deja pasar `<br>` para cortar líneas. Los textos que pueden desbordar su celda se ajustan solos, después de que carga la fuente: primero se reducen hasta el 85 % de su tamaño y, si aún no caben, se recortan con puntos suspensivos. `mount` deja los avisos en `el.mzAvisos` (qué texto se redujo o se recortó) y emite el evento `mz-ajustado`. Geist viene incluida en `tokens/fonts`, así que el render no depende de la red.
 
 ## Índice de archivos
 

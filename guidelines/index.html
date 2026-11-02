@@ -144,7 +144,7 @@ input[type=range]{width:100%;accent-color:var(--mz-amarillo);height:26px;margin:
 
 <header class="wrap top">
   <svg viewBox="0 0 629.21 159.59" role="img" aria-label="Mooza"><use href="#mz-lockup"/></svg>
-  <nav aria-label="Secciones"><a href="#grilla">Grilla</a><a href="#formatos">Formatos</a><a href="#logo">Logo</a><a href="#color">Color</a><a href="#tipo">Tipo</a><a href="#interfaz">Interfaz</a><a href="#historias">Historias</a><a href="#fondo">Fondo</a><a href="#fotos">Fotos</a><a href="#ilustracion">Musas</a><a href="#poleras">Poleras</a><a href="#voz">Voz</a><a href="#kit">Kit</a></nav>
+  <nav aria-label="Secciones"><a href="#grilla">Grilla</a><a href="#formatos">Formatos</a><a href="#logo">Logo</a><a href="#color">Color</a><a href="#tipo">Tipo</a><a href="#interfaz">Interfaz</a><a href="#historias">Historias</a><a href="#cartelera">Cartelera</a><a href="#fondo">Fondo</a><a href="#fotos">Fotos</a><a href="#ilustracion">Musas</a><a href="#poleras">Poleras</a><a href="#voz">Voz</a><a href="#kit">Kit</a></nav>
 </header>
 
 <main class="wrap">
@@ -317,6 +317,18 @@ input[type=range]{width:100%;accent-color:var(--mz-amarillo);height:26px;margin:
     </div>
   </section>
 
+  <section class="sec" id="cartelera">
+    <span class="k">Cartelera del mes</span>
+    <h2>Mucha información, la misma grilla</h2>
+    <p class="nota" style="margin-bottom:28px">El post del mes lleva una portada <code>mes</code> y una o más láminas <code>cartelera</code>. La portada es un mosaico de fotos, una por celda, que nunca va sobre azul. La lámina reparte hasta diez eventos en dos columnas, la 1 a la 3 y la 5 a la 7, uno por fila. El banner lleva solo el nombre de la cartelera: no lleva ilustración.</p>
+    <img src="img/d-cartelera.jpg" alt="Portada del mes con mosaico de fotos, lámina de cartelera sobre amarillo, lámina sobre azul e historia editorial en 9:16" style="width:100%;height:auto;display:block">
+    <div class="cols" style="margin-top:32px;align-items:start">
+      <div><span class="k">Densidad</span><p>Las láminas usan dos pasos de tamaño más chicos que la escala, <code>--mz-t-lista</code> y <code>--mz-t-nota</code>, solo para la lista de eventos. El nombre del evento tiene dos líneas como máximo.</p></div>
+      <div><span class="k">Texto que no cabe</span><p>Se reduce hasta el 85 % y, si aún no cabe, se recorta con puntos suspensivos. El generador avisa qué texto tocó. Mejor limpiar el dato antes: sin la fecha ni la hora dentro del nombre.</p></div>
+      <div><img src="img/d-cartelera-grilla.jpg" alt="Portada, lámina e historia editorial con la grilla a la vista" style="width:100%;height:auto;display:block"></div>
+    </div>
+  </section>
+
   <section class="sec" id="fondo">
     <span class="k">Fondo</span>
     <h2>El logo como fondo</h2>
@@ -351,7 +363,7 @@ input[type=range]{width:100%;accent-color:var(--mz-amarillo);height:26px;margin:
   <section class="sec" id="ilustracion">
     <span class="k">Ilustración</span>
     <h2>Las cuatro musas</h2>
-    <p class="nota" style="margin-bottom:28px">Mooza suena a musa. Euterpe (música), Talía (teatro), Terpsícore (danza) y Calíope (letras): grabado de línea fina en tinta azul con transparencia, flotando, sin escena ni marco. Van sobre una zona de color o sobre el corte entre dos colores, con el color pasando por la figura; nunca sobre una foto.</p>
+    <p class="nota" style="margin-bottom:28px">Mooza suena a musa. Euterpe (música), Talía (teatro), Terpsícore (danza) y Calíope (letras): grabado de línea fina en tinta azul con transparencia, flotando, sin escena ni marco. Van sobre una zona de color o sobre el corte entre dos colores, con el color pasando por la figura; nunca sobre una foto. Prohibido, sin excepciones: la musa en el banner de una lámina de datos, la musa blanca o invertida y la musa sobre azul. Las láminas de datos no llevan ilustración.</p>
     <div class="ilus" style="grid-template-columns:repeat(4,minmax(0,1fr))">
       <figure><img src="img/musa-euterpe.jpg" alt="Euterpe, musa de la música"><figcaption>Música: Euterpe</figcaption></figure>
       <figure><img src="img/musa-talia.jpg" alt="Talía, musa del teatro"><figcaption>Teatro: Talía</figcaption></figure>

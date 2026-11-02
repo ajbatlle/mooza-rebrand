@@ -134,3 +134,6 @@
 .mz-mes-t{align-self:end}
 .mz-mes-dato{align-self:start;font-weight:var(--mz-peso-numero)}
 .mz-mes-baj{align-self:start;opacity:.72}
+.mz-ev-k,.mz-ev-l{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mz-d-agenda .mz-evento-t .mz-t-texto[data-lineas]{--mz-tam:calc(var(--mz-col)*.38*1cqw)}
+.mz-t-grande[data-lineas]{--mz-tam:var(--mz-t-grande)}

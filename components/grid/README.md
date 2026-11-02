@@ -31,6 +31,13 @@ Un diseño que no existe en un formato lanza un error.
 
 Los campos que no pases se toman de `MoozaPoster.EJEMPLO`: `color` (la zona de color: `azul`, `amarillo` o `naranja`; cada diseño tiene el suyo por defecto: titular azul, número amarillo, semana naranja y agenda amarillo; el texto sobre amarillo y naranjo va en azul), `rango`, `corto`, `titular`, `dias` y `diaDestacado` (semana), `evento` (foto), `agenda` (`dia`, `n`, `pag` y hasta tres `eventos` con `h`, `t`, `v`, `p`, `f`) y `story`.
 
+## Cartelera, mes y titular vertical
+
+- `cartelera` (4:5): `datos.cartelera = {titulo, mes, pag, bajada, pie, eventos:[{k, t, l, h}]}`. `k` es la línea de arriba (día y, si hace falta, categoría), `t` el nombre (hasta dos líneas), `l` el lugar y `h` la hora. Diez eventos por lámina, ocho si hay `bajada`. Sin ilustración. Sobre azul el titular va en blanco (`datos.color`).
+- `mes` (4:5): `datos.mes = {titulo, dato, bajada, pie, fotos:[{src, pos, listo}]}`. Hasta 28 fotos, una por celda de siete columnas por cuatro filas. Nunca azul: `color: 'azul'` se cambia por amarillo.
+- `titular` en 9:16: con `datos.bajada` (hasta cinco líneas) en vez de `datos.rango`. Usa los márgenes de historia.
+- Texto plano: todo se escapa menos `<br>`. `MoozaPoster.ajustar(raiz)` reduce hasta el 85 % los textos con `data-lineas` y recorta con puntos suspensivos; `mount` lo llama solo y deja los avisos en `el.mzAvisos`.
+
 ## Historias y pestaña
 
 `story` y `story-vertical` toman estos campos de `datos.story`: `categoria`, `cartelera` (la colección, desde la columna 5, a la derecha de la categoría), `titulo`, `lugar`, `fecha`, `precio`, `descripcion` (hasta tres líneas; sin ella, la foto de `story` gana dos filas) y `cta` (el texto de la pestaña). `meta` sigue funcionando como texto libre de tres líneas.
