@@ -284,29 +284,36 @@
   /* cartelera: la lámina de una cartelera del mes, con mucha información. Arriba, sobre el color, el nombre de la cartelera: en tamaño grande si tiene hasta diez letras y en titular, hasta dos líneas, si es más largo.
      Abajo, sobre gris, el mes y la página, y hasta diez eventos en dos columnas (la 1 a la 3 y la 5 a la 7), uno por fila y con una línea fina arriba.
      Con bajada, la quinta fila de cada columna se la lleva y caben ocho. Sin ilustración: la musa no va en esta lámina (ver "Ilustración" en el readme).
-     datos.cartelera = {titulo, mes, pag, bajada, pie, vineta:{src, alt, en, ancla}, eventos:[{k, t, l, h}]}
+     datos.cartelera = {titulo, mes, pag, bajada, pie, vineta:{src, alt, en, ancla}, compacta, eventos:[{k, t, l, h}]}
        k  la línea de arriba: día y, si hace falta, categoría ("Martes 17 · Música")
        t  el nombre del evento, hasta dos líneas
        l  el lugar; h, la hora */
   function cartelera(d,n,f){
     var c=d.cartelera,k=tinta(d,'azul'),v=c.vineta&&c.vineta.src?c.vineta:null,
+        /* compacta: diez eventos y una viñeta. El mes y la página pasan arriba del título, en el banner, la lista sube una fila y la viñeta ocupa la fila de abajo */
+        compacta=!!c.compacta,
         /* en el banner: la viñeta va en tinta azul, así que el banner no puede ser azul; el banner gana una fila */
-        enBanner=!!(v&&v.en==='banner'&&d.color&&d.color!=='azul'),ban=enBanner?3:2,ev0=ban+2,
+        enBanner=!compacta&&!!(v&&v.en==='banner'&&d.color&&d.color!=='azul'),ban=enBanner?3:2,ev0=compacta?3:ban+2,
         arriba=enBanner&&v.ancla==='arriba',
-        tope=n-1-ev0+1-(c.bajada?1:0),por=Math.min(tope,Math.ceil((c.eventos||[]).length/2)),
+        tope=compacta?5:n-1-ev0+1-(c.bajada?1:0),por=Math.min(tope,Math.ceil((c.eventos||[]).length/2)),
         corto=String(c.titulo||'').length<=10,
         img=v?'<img src="'+esc(v.src)+'" alt="'+esc(v.alt||'')+'">':'',
         h=zonaA(ban,campo(d,'azul'))+fondo(d,f,[0,0,100,yZona(d,f,n,ban,true)],'azul')+
           (arriba?cell(1,7,1,1,'mz-vineta mz-vineta-arriba',img):'')+
-          cell(1,7,arriba?2:1,enBanner&&!arriba?ban-1:ban,(corto?'mz-t-grande':'mz-t-titular')+' mz-cart-t'+k,tx(c.titulo),'',' data-lineas="'+(corto?1:2)+'"')+
-          cell(1,4,ban+1,ban+1,'mz-t-dato mz-cart-mes',tx(c.mes))+cell(5,7,ban+1,ban+1,'mz-t-dato mz-cart-mes mz-cart-pag',tx(c.pag));
+          cell(1,7,arriba?2:1,enBanner&&!arriba?ban-1:ban,(corto?'mz-t-grande':'mz-t-titular')+' mz-cart-t'+(compacta?' mz-cart-t-c':'')+k,tx(c.titulo),'',' data-lineas="'+(corto?1:2)+'"')+
+          (compacta?cell(1,4,1,1,'mz-t-dato mz-cart-mes mz-cart-mes-c'+k,tx(c.mes))+cell(5,7,1,1,'mz-t-dato mz-cart-mes mz-cart-mes-c mz-cart-pag'+k,tx(c.pag))
+                   :cell(1,4,ban+1,ban+1,'mz-t-dato mz-cart-mes',tx(c.mes))+cell(5,7,ban+1,ban+1,'mz-t-dato mz-cart-mes mz-cart-pag',tx(c.pag)));
     if(enBanner&&!arriba)h+=cell(1,7,ban-1,ban,'mz-vineta mz-vineta-abajo',img);
     (c.eventos||[]).slice(0,tope*2).forEach(function(e,i){
       var col=i<por?1:5,r=ev0+i%por;
       h+=cell(col,col+2,r,r,'mz-ev','<span class="mz-ev-k">'+tx(e.k)+'</span><span class="mz-ev-t" data-lineas="2">'+tx(e.t)+'</span><span class="mz-ev-l">'+tx([e.l,e.h].filter(Boolean).join(' • '))+'</span>');
     });
-    /* viñeta opcional (kit/ilustraciones/vinetas), a sangre. Por defecto va en las dos últimas filas si quedan libres (hasta seis eventos y sin bajada) */
-    if(v&&!enBanner&&por<=3&&!c.bajada)h+=cell(1,7,n-2,n-1,'mz-vineta',img);
+    /* viñeta opcional (kit/ilustraciones/vinetas), a sangre. Por defecto va en las dos últimas filas si quedan libres (hasta seis eventos y sin bajada).
+       En la lámina compacta va en la última fila de la lista y se pasa un poco sobre las separaciones */
+    if(v&&!enBanner&&!c.bajada){
+      if(compacta)h+=cell(1,7,n-1,n-1,'mz-vineta mz-vineta-c',img);
+      else if(por<=3)h+=cell(1,7,n-2,n-1,'mz-vineta',img);
+    }
     if(c.bajada)h+=cell(1,7,8,8,'mz-t-dato mz-cart-baj',tx(c.bajada),'',' data-lineas="2"');
     return grid(n,h+pie(n,tx(c.pie||'mooza.cl')));
   }

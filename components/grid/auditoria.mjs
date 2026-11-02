@@ -39,14 +39,15 @@ const PREVIEW = 'file://' + path.resolve(path.dirname(fileURLToPath(import.meta.
   };
   const VIN={cartelera:{cartelera:{titulo:'Rock',mes:'Noviembre 2026',pag:'1 / 1',pie:'Toda la agenda en mooza.cl',eventos:[0,1,2,3,4,5].map(i=>EV(i)),vineta:{src:'../../kit/ilustraciones/vinetas/sin-fondo/cinta.png'}}}};
   const VB=(t,ancla)=>({cartelera:{titulo:t,mes:'Noviembre 2026',pag:'1 / 1',pie:'Toda la agenda en mooza.cl',eventos:[0,1,2,3,4,5].map(i=>EV(i)),vineta:{src:'../../kit/ilustraciones/vinetas/sin-fondo/'+(ancla==='arriba'?'telon':'publico')+'.png',en:'banner',ancla}},color:'amarillo'});
-  const casos=[[null,'ejemplo'],['estres','estrés'],['vineta','viñeta'],['vb1','viñeta arriba'],['vb2','viñeta abajo']];
+  const VC=(t,v)=>({cartelera:{titulo:t,mes:'Noviembre 2026',pag:'1 / 2',pie:'Toda la agenda en mooza.cl',compacta:true,eventos:[0,1,2,3,4,5,6,7,8,9].map(i=>EV(i)),vineta:{src:'../../kit/ilustraciones/vinetas/sin-fondo/'+v+'.png'}},color:'amarillo'});
+  const casos=[[null,'ejemplo'],['estres','estrés'],['vineta','viñeta'],['vb1','viñeta arriba'],['vb2','viñeta abajo'],['vc1','compacta'],['vc2','compacta larga']];
   for(const [m,g] of CFG){
    for(const [tipo,fs] of Object.entries(P.ROWS)) for(const f of Object.keys(fs)) for(const [caso,nom] of casos){
     if(caso==='estres'&&!ESTRES[tipo])continue;
     if(caso==='vineta'&&!VIN[tipo])continue;
-    if((caso==='vb1'||caso==='vb2')&&tipo!=='cartelera')continue;
+    if((caso==='vb1'||caso==='vb2'||caso==='vc1'||caso==='vc2')&&tipo!=='cartelera')continue;
     const host=document.createElement('div');host.style.cssText='width:600px;position:absolute;left:0;top:0';host.style.setProperty('--mz-m',m);host.style.setProperty('--mz-g',g);document.body.appendChild(host);
-    const el=document.createElement('div');host.appendChild(el);P.mount(el,tipo,caso==='estres'?ESTRES[tipo]:caso==='vineta'?VIN[tipo]:caso==='vb1'?VB('Teatro y danza','arriba'):caso==='vb2'?VB('Folclore y música de raíz','abajo'):null,f);
+    const el=document.createElement('div');host.appendChild(el);P.mount(el,tipo,caso==='estres'?ESTRES[tipo]:caso==='vineta'?VIN[tipo]:caso==='vb1'?VB('Teatro y danza','arriba'):caso==='vb2'?VB('Folclore y música de raíz','abajo'):caso==='vc1'?VC('Rock','cinta'):caso==='vc2'?VC('Folclore y música de raíz','telon'):null,f);
     await new Promise(r=>requestAnimationFrame(r));
     const box=rect(el), W=box.r-box.l, mm=m/100*W, pad=mm;
     const inner={l:box.l+pad,r:box.r-pad,t:box.t+(f==='9x16'?Math.min(m*2.2,18)/100*W:pad),b:box.b-(f==='9x16'?Math.min(m*2.2,18)/100*W:pad)};

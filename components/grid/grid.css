@@ -150,3 +150,9 @@
 .mz-vineta-arriba{margin-top:calc(var(--mz-m)*-1cqw)}
 .mz-vineta-abajo{align-items:flex-end;margin-bottom:calc(var(--mz-g)*-.5cqw)}
 .mz-cart-t{position:relative;z-index:1}
+/* lámina compacta: el mes y la página van arriba del título, en el banner, y el título baja y se achica un paso para que quepa */
+.mz-cart-t-c{margin-top:calc(var(--mz-col)*.5*1cqw)}
+.mz-cart-t-c.mz-t-titular[data-lineas]{--mz-tam:calc(var(--mz-col)*.78*1cqw)}
+.mz-cart-mes-c{align-self:start}
+.mz-vineta-c{overflow:visible}
+.mz-vineta-c img{max-height:none}
