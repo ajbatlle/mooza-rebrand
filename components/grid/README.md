@@ -37,7 +37,7 @@ Los campos que no pases se toman de `MoozaPoster.EJEMPLO`: `color` (la zona de c
 
 - Las dos historias cuelgan de dos anclas: la columna 1 (categoría, título, lugar) y la columna 5 (cartelera, fecha y precio). La foto ocupa las siete columnas.
 - `story`: foto apaisada de siete filas (nueve si no hay descripción), con la descripción bajo los datos y una fila libre entre ambos.
-- `story-vertical`: foto de diez filas, casi un 4:5, con los mismos textos pero sin descripción. También se activa con `datos.foto.vertical: true`.
+- `story-vertical`: foto de diez filas (0,93:1, casi cuadrada), con los mismos textos pero sin descripción. También se activa con `datos.foto.vertical: true`.
 - La pestaña es una etiqueta pequeña de una línea, más baja que el logo, que se ajusta al texto y se apoya en el margen derecho, en la misma fila del logo. Su color es el de la foto; `datos.story.ctaColor` lo cambia. En el afiche A3 de `foto` va a la izquierda, sobre el pie, y se activa con `datos.cta`.
 
 ## Reglas

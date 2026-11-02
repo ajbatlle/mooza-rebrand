@@ -230,7 +230,7 @@
   /* story 9:16. Dos composiciones, según la foto.
      Apaisada (por defecto): arriba la foto de siete columnas; debajo la categoría a la izquierda y la cartelera a la derecha, el título,
      lugar, fecha y precio, una descripción de hasta tres líneas, la pestaña y el pie. Sin descripción, la foto gana dos filas.
-     Vertical (datos.foto.vertical o el diseño story-vertical): la foto ocupa las siete columnas y diez filas, casi un 4:5, con los mismos textos
+     Vertical (datos.foto.vertical o el diseño story-vertical): la foto ocupa las siete columnas y diez filas (0,93:1, casi cuadrada), con los mismos textos
      debajo y sin descripción. Todo cuelga de la columna 1 y la columna 5; la pestaña va en la fila del logo, a la derecha. */
   function story(d,n,f){
     var t=d.story,vertical=!!(d.foto&&d.foto.vertical),sobre=(d.foto&&d.foto.color)||d.color||'naranja',cta=t.cta||d.cta,
