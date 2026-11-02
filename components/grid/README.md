@@ -33,7 +33,7 @@ Los campos que no pases se toman de `MoozaPoster.EJEMPLO`: `color` (la zona de c
 
 ## Cartelera, mes y titular vertical
 
-- `cartelera` (4:5): `datos.cartelera = {titulo, mes, pag, bajada, pie, eventos:[{k, t, l, h}]}`. `k` es la línea de arriba (día y, si hace falta, categoría), `t` el nombre (hasta dos líneas), `l` el lugar y `h` la hora. Diez eventos por lámina, ocho si hay `bajada`. Sin ilustración. Sobre azul el titular va en blanco (`datos.color`).
+- `cartelera` (4:5): `datos.cartelera = {titulo, mes, pag, bajada, pie, eventos:[{k, t, l, h}]}`. `k` es la línea de arriba (día y, si hace falta, categoría), `t` el nombre (hasta dos líneas), `l` el lugar y `h` la hora. Diez eventos por lámina, ocho si hay `bajada`, repartidos parejos entre las dos columnas. El nombre va en tamaño grande si tiene hasta diez letras y en titular si es más largo. Sin ilustración; el fondo de marca va un paso más presente. Sobre azul el titular va en blanco (`datos.color`).
 - `mes` (4:5): `datos.mes = {titulo, dato, bajada, pie, fotos:[{src, pos, listo}]}`. Hasta 28 fotos, una por celda de siete columnas por cuatro filas. Nunca azul: `color: 'azul'` se cambia por amarillo.
 - `titular` en 9:16: con `datos.bajada` (hasta cinco líneas) en vez de `datos.rango`. Usa los márgenes de historia.
 - Texto plano: todo se escapa menos `<br>`. `MoozaPoster.ajustar(raiz)` reduce hasta el 85 % los textos con `data-lineas` y recorta con puntos suspensivos; `mount` lo llama solo y deja los avisos en `el.mzAvisos`.

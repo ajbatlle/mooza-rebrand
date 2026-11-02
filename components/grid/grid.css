@@ -137,3 +137,5 @@
 .mz-ev-k,.mz-ev-l{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mz-d-agenda .mz-evento-t .mz-t-texto[data-lineas]{--mz-tam:calc(var(--mz-col)*.38*1cqw)}
 .mz-t-grande[data-lineas]{--mz-tam:var(--mz-t-grande)}
+/* la lámina de cartelera es casi toda texto: el fondo de marca se deja un paso más presente que en el resto de las piezas */
+.mz-d-cartelera{--mz-tono-azul:color-mix(in srgb,var(--mz-azul) 80%,#fff);--mz-tono-amarillo:color-mix(in srgb,var(--mz-amarillo) 70%,var(--mz-naranja));--mz-tono-naranja:color-mix(in srgb,var(--mz-naranja) 62%,var(--mz-amarillo));--mz-tono-claro:color-mix(in srgb,var(--mz-claro) 88%,var(--mz-azul))}
