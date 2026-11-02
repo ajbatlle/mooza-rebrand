@@ -1,4 +1,4 @@
-# Prompts para las cuatro viñetas horizontales (borrador)
+# Prompts para las cuatro viñetas horizontales
 
 Son ilustraciones opcionales para rellenar un espacio vacío, en una franja horizontal de siete columnas. No son musas: dicen otra cosa (dónde, cuándo, función, público). Mismo estilo de las musas, más sutiles: menos negro sólido, más línea y mucho blanco.
 

@@ -37,18 +37,20 @@ const PREVIEW = 'file://' + path.resolve(path.dirname(fileURLToPath(import.meta.
     mes:{mes:{titulo:'Noviembre 2026',dato:'+945 eventos en 331 espacios este mes y algo más',bajada:LARGO,fotos:[]}},
     story:{story:ST},'story-vertical':{story:ST}
   };
-  const casos=[[null,'ejemplo'],['estres','estrés']];
+  const VIN={cartelera:{cartelera:{titulo:'Rock',mes:'Noviembre 2026',pag:'1 / 1',pie:'Toda la agenda en mooza.cl',eventos:[0,1,2,3,4,5].map(i=>EV(i)),vineta:{src:'../../kit/ilustraciones/vinetas/sin-fondo/ciudad.png'}}}};
+  const casos=[[null,'ejemplo'],['estres','estrés'],['vineta','viñeta']];
   for(const [m,g] of CFG){
    for(const [tipo,fs] of Object.entries(P.ROWS)) for(const f of Object.keys(fs)) for(const [caso,nom] of casos){
-    if(caso&&!ESTRES[tipo])continue;
+    if(caso==='estres'&&!ESTRES[tipo])continue;
+    if(caso==='vineta'&&!VIN[tipo])continue;
     const host=document.createElement('div');host.style.cssText='width:600px;position:absolute;left:0;top:0';host.style.setProperty('--mz-m',m);host.style.setProperty('--mz-g',g);document.body.appendChild(host);
-    const el=document.createElement('div');host.appendChild(el);P.mount(el,tipo,caso?ESTRES[tipo]:null,f);
+    const el=document.createElement('div');host.appendChild(el);P.mount(el,tipo,caso==='estres'?ESTRES[tipo]:caso==='vineta'?VIN[tipo]:null,f);
     await new Promise(r=>requestAnimationFrame(r));
     const box=rect(el), W=box.r-box.l, mm=m/100*W, pad=mm;
     const inner={l:box.l+pad,r:box.r-pad,t:box.t+(f==='9x16'?Math.min(m*2.2,18)/100*W:pad),b:box.b-(f==='9x16'?Math.min(m*2.2,18)/100*W:pad)};
     const logo=el.querySelector('.mz-logo'), fecha=el.querySelector('.mz-fecha-pie');
     const textos=[...el.querySelectorAll('.mz-t-display,.mz-t-grande,.mz-t-titular,.mz-t-sub,.mz-t-texto,.mz-t-dato,.mz-t-micro,.mz-hora,.mz-dc b,.mz-ev-k,.mz-ev-t,.mz-ev-l')].filter(x=>!x.classList.contains('mz-fecha-pie'));
-    const bloques=[...el.querySelectorAll('.mz-ph,.mz-dc')];
+    const bloques=[...el.querySelectorAll('.mz-ph,.mz-dc,.mz-vineta')];
     const tag=`${tipo}/${f} ${nom} m${m} g${g}`;
     // una palabra conectora nunca queda suelta: siempre va pegada a la siguiente con un espacio de no separación
     const CON='a|al|ante|bajo|con|contra|de|del|desde|durante|e|el|en|entre|hacia|hasta|la|las|lo|los|mediante|ni|o|para|por|que|según|sin|sobre|su|sus|tras|u|un|una|unos|unas|y';

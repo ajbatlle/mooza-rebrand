@@ -142,3 +142,7 @@
 .mz-t-grande[data-lineas]{--mz-tam:var(--mz-t-grande)}
 /* la lámina de cartelera es casi toda texto: el fondo de marca se deja un paso más presente que en el resto de las piezas */
 .mz-d-cartelera{--mz-tono-azul:color-mix(in srgb,var(--mz-azul) 80%,#fff);--mz-tono-amarillo:color-mix(in srgb,var(--mz-amarillo) 70%,var(--mz-naranja));--mz-tono-naranja:color-mix(in srgb,var(--mz-naranja) 62%,var(--mz-amarillo));--mz-tono-claro:color-mix(in srgb,var(--mz-claro) 88%,var(--mz-azul))}
+
+/* viñeta: friso horizontal en tinta azul sobre el gris, en las dos últimas filas libres de una cartelera. Va centrada entre la lista y el pie */
+.mz-vineta{display:flex;align-items:center;justify-content:center}
+.mz-vineta img{display:block;width:100%;height:auto;max-height:100%;object-fit:contain}

@@ -16,6 +16,7 @@ Decisiones de la marca:
 - Fondo de marca: el logo a gran escala, tono sobre tono, con borde suave y grano, detrás de todo y siempre. Es la manera de comunicar de Mooza (`fondo: false` solo para plantillas editables).
 - Formatos: 4:5, A3, 1:1, 9:16 y 16:9, todos con siete columnas. Pie: la última fila, con el logo de dos columnas a la izquierda y fecha o web a la derecha.
 - Cartelera del mes: `mes` (portada con mosaico de fotos, nunca azul) y láminas `cartelera` (hasta diez eventos en dos columnas, sin ilustración). `titular` en 9:16 para la historia editorial.
+- Viñetas: cuatro frisos horizontales opcionales (ciudad, cinta, telón, público) en `kit/ilustraciones/vinetas/`. Una por lámina de cartelera, solo en las dos últimas filas libres, sobre gris y en tinta azul; nunca en el banner ni sobre texto.
 - Musas: nunca en el banner de una lámina de datos, nunca blancas o invertidas, nunca sobre azul ni sobre una foto.
 - Tipografía: una palabra conectora (de, la, y, en, con…) nunca queda sola ni al final de una línea; el generador la pega a la siguiente.
 - Historias: `story` para fotos apaisadas y `story-vertical` para fotos verticales (no se cortan). Pestaña de aviso: una etiqueta pequeña de una línea, más baja que el logo, en la fila del logo y con el color de la foto.

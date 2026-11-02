@@ -91,12 +91,21 @@ Puede ir en la celda de foto (diseños `foto` y `story`, y la mitad derecha del 
 Cuatro musas, dibujadas como grabado de línea fina en tinta azul con transparencia, flotando, sin escena ni marco: Euterpe (música), Talía (teatro), Terpsícore (danza) y Calíope (letras). Se usan solo sobre una zona de color o sobre el corte entre dos colores, nunca sobre una foto. Los dibujos y sus prompts están en `kit/ilustraciones/`.
 
 Prohibido, sin excepciones:
-- La musa en el banner de una lámina de datos (`agenda`, `cartelera`). Queda chica, desequilibra el titular y no funciona. Las láminas de datos no llevan ilustración: el titular y la lista son los protagonistas.
+- La musa en el banner de una lámina de datos (`agenda`, `cartelera`). Queda chica, desequilibra el titular y no funciona. Las láminas de datos no llevan musa: el titular y la lista son los protagonistas.
 - La musa blanca o invertida. La musa es tinta azul y no se da vuelta.
 - La musa sobre azul. Sobre azul la tinta se pierde, así que no hay musa sobre azul.
 - La musa sobre una foto.
 
 La musa va solo en el diseño `musa` y como respaldo en una celda de color cuando no hay foto, siempre sobre amarillo o naranjo.
+
+### Viñetas
+
+Cuatro frisos horizontales, en el mismo grabado de línea fina de las musas pero más livianos, que dicen otra cosa: la ciudad (dónde), la cinta (cuándo), el telón (empieza la función) y el público (ir con otros). Sirven para rellenar un espacio vacío, y solo si se quiere. Están en `kit/ilustraciones/vinetas/`: `originales/` (negro sobre blanco) y `sin-fondo/` (PNG en tinta azul con transparencia, 2000 px de ancho).
+
+Reglas:
+- Una viñeta por lámina, solo en `cartelera`, solo cuando quedan libres las dos últimas filas (hasta seis eventos y sin bajada). Ocupa las siete columnas y esas dos filas, centrada entre la lista y el pie.
+- Es la única ilustración que va sobre el gris. Nunca en el banner, nunca sobre texto, nunca sobre una zona de color y nunca en blanco o invertida.
+- Se pide con `datos.cartelera.vineta = {src, alt}`. Si no hay espacio, no se dibuja.
 
 ### Poleras
 
@@ -125,7 +134,7 @@ Cada pieza se parte en dos zonas, una arriba y otra abajo (en 16:9, izquierda y 
 
 ### Cartelera del mes
 
-El post del mes se arma con `mes` (la portada) y una o más láminas `cartelera`. Las láminas llevan mucha información y está bien: la grilla se reparte en dos columnas, la 1 a la 3 y la 5 a la 7, con la columna 4 libre. Cada evento ocupa una fila: arriba el día (y la categoría si hace falta), después el nombre, hasta dos líneas, y al final el lugar y la hora. Caben diez eventos por lámina y ocho si lleva bajada. Para eso usa dos pasos de tamaño de densidad (`--mz-t-lista` y `--mz-t-nota`), solo en este diseño. Las columnas se reparten parejas (siete eventos van cuatro y tres). El banner lleva el nombre de la cartelera en tamaño grande si tiene hasta diez letras ("Rock", "Jazz") y en tamaño titular, hasta dos líneas, si es más largo. Para que la lámina no se sienta vacía no se agrega ilustración: el nombre grande y un fondo de marca un paso más presente hacen ese trabajo.
+El post del mes se arma con `mes` (la portada) y una o más láminas `cartelera`. Las láminas llevan mucha información y está bien: la grilla se reparte en dos columnas, la 1 a la 3 y la 5 a la 7, con la columna 4 libre. Cada evento ocupa una fila: arriba el día (y la categoría si hace falta), después el nombre, hasta dos líneas, y al final el lugar y la hora. Caben diez eventos por lámina y ocho si lleva bajada. Para eso usa dos pasos de tamaño de densidad (`--mz-t-lista` y `--mz-t-nota`), solo en este diseño. Las columnas se reparten parejas (siete eventos van cuatro y tres). El banner lleva el nombre de la cartelera en tamaño grande si tiene hasta diez letras ("Rock", "Jazz") y en tamaño titular, hasta dos líneas, si es más largo. Para que la lámina no se sienta vacía no lleva musa: el nombre grande y un fondo de marca un paso más presente hacen ese trabajo. Si aun así sobra espacio, admite una viñeta opcional (ver Viñetas).
 
 La portada `mes` nunca es azul: las fotos son tinta azul y se pierden sobre azul. El mosaico usa siete columnas por cuatro filas, una foto por celda, y el medianil queda del color de la pieza. La lámina `cartelera` puede ir sobre cualquiera de los tres colores y sobre azul el titular va en blanco.
 

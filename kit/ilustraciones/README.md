@@ -11,3 +11,12 @@ Las musas son dibujos de píxeles (PNG): no existe una versión vectorial. Para 
 Reglas: una musa por pieza, solo sobre una zona de color o sobre el corte entre dos colores, nunca sobre una foto. La tinta es transparente, así que el color de atrás pasa por la figura.
 
 La lámina con el logo y mooza.cl se genera con `MoozaPoster.mount(el, 'musa', {musa: {src: 'sin-fondo/png/Euterpe.png', colores: ['gris', 'amarillo'], corte: 'v', x: 16.3, y: 8.2}}, 'carta')`.
+
+## Viñetas
+
+Cuatro frisos horizontales opcionales, en el mismo grabado pero más livianos: la ciudad (dónde), la cinta (cuándo), el telón (empieza la función) y el público (ir con otros). Los prompts están en `prompts-vinetas.md`.
+
+- `vinetas/originales/`: los dibujos tal como salieron de ChatGPT, negro sobre blanco (`ciudad.png`, `cinta.png`, `telon.png`, `publico.png`).
+- `vinetas/sin-fondo/`: los mismos en el azul `#1b1444`, con transparencia y recortados a la franja del dibujo, de 2000 px de ancho. Son los que usa el generador.
+
+Reglas: una por lámina de cartelera, solo en las dos últimas filas libres (hasta seis eventos y sin bajada), sobre el gris y en tinta azul. Nunca en el banner, sobre texto o sobre una zona de color. Se piden con `datos.cartelera.vineta = {src, alt}`.
