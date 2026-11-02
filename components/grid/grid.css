@@ -80,7 +80,10 @@
 /* semana: tira de siete días */
 .mz-dc{box-shadow:inset 0 0 0 1px var(--mz-azul);display:flex;flex-direction:column;justify-content:space-between;padding:calc(var(--mz-col)*.06*1cqw)}
 .mz-dc b{font-size:var(--mz-t-texto);font-weight:600;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
-.mz-dc-on{background:var(--mz-amarillo);box-shadow:none;color:var(--mz-azul)}
+/* el día con más eventos va subrayado con una línea naranja, igual que la hora destacada de la agenda, y lleva una leyenda debajo */
+.mz-dc-on{position:relative;overflow:visible}
+.mz-dc-bar{position:absolute;left:0;right:0;top:100%;margin-top:calc(var(--mz-g)*.15cqw);height:calc(var(--mz-col)*.1*1cqw);background:var(--mz-naranja)}
+.mz-leyenda{align-self:start;padding-top:calc(var(--mz-g)*.6cqw);opacity:.72}
 
 /* agenda */
 .mz-num{font-family:var(--mz-grot);font-weight:var(--mz-peso-numero);letter-spacing:var(--mz-track-numero);line-height:.74;font-variant-numeric:tabular-nums}

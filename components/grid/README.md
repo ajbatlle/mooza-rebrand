@@ -29,7 +29,7 @@ Un diseño que no existe en un formato lanza un error.
 
 ## Datos
 
-Los campos que no pases se toman de `MoozaPoster.EJEMPLO`: `color` (la zona de color: `azul`, `amarillo` o `naranja`; cada diseño tiene el suyo por defecto: titular azul, número amarillo, semana naranja y agenda amarillo; el texto sobre amarillo y naranjo va en azul), `rango`, `corto`, `titular`, `dias` y `diaDestacado` (semana), `evento` (foto), `agenda` (`dia`, `n`, `pag` y hasta tres `eventos` con `h`, `t`, `v`, `p`, `f`) y `story`.
+Los campos que no pases se toman de `MoozaPoster.EJEMPLO`: `color` (la zona de color: `azul`, `amarillo` o `naranja`; cada diseño tiene el suyo por defecto: titular azul, número amarillo, semana naranja y agenda amarillo; el texto sobre amarillo y naranjo va en azul), `rango`, `corto`, `titular`, `dias`, `diaDestacado` (semana: el índice, de 0 a 6, del día con más eventos; lleva un subrayado naranja y la leyenda "Más eventos el viernes", que se cambia con `leyenda`; sin él no hay ni subrayado ni leyenda), `evento` (foto), `agenda` (`dia`, `n`, `pag` y hasta tres `eventos` con `h`, `t`, `v`, `p`, `f`) y `story`.
 
 ## Cartelera, mes y titular vertical
 

@@ -115,7 +115,7 @@ Cada pieza se parte en dos zonas, una arriba y otra abajo (en 16:9, izquierda y 
 | titular | Arriba, el titular sobre el color. Abajo, sobre gris, la fecha. En 9:16, una bajada de hasta cinco líneas en vez de la fecha | 4:5, A3, 1:1, 16:9, 9:16 |
 | número | Arriba, sobre gris, el rango de la semana, enorme. Abajo, sobre el color, qué es | 4:5, A3, 1:1, 16:9 |
 | foto | Arriba, la foto. Abajo, sobre gris, el nombre del evento y sus datos | 4:5, A3, 1:1, 16:9 |
-| semana | Arriba, sobre el color, el titular. Abajo, sobre gris, siete días con el destacado en acento | 4:5, A3, 1:1 |
+| semana | Arriba, sobre el color, el titular. Abajo, sobre gris, siete días; el que tiene más eventos va subrayado y lleva debajo una leyenda corta ("Más eventos el viernes") | 4:5, A3, 1:1 |
 | agenda | Arriba, sobre el color, el día. Abajo, sobre gris, hasta tres eventos con una línea fina entre ellos | 4:5, A3 |
 | cartelera | Arriba, sobre el color, el nombre de la cartelera. Abajo, sobre gris, el mes, la página y hasta diez eventos en dos columnas, uno por fila y con una línea fina arriba | 4:5 |
 | mes | La portada del post del mes. Arriba, un mosaico de hasta 28 fotos, una por celda de la grilla. Abajo, sobre gris, el mes, un dato y una bajada | 4:5 |

@@ -82,9 +82,10 @@ async function leer(tipo, formato) {
     const bg = col(getComputedStyle(el).backgroundColor).hex;
     el.querySelectorAll('.mz-zona,.mz-zona-a,.mz-mitad,.mz-ph,.mz-mosaico,.mz-dc').forEach(e => {
       const c = col(getComputedStyle(e).backgroundColor);
-      if (e.classList.contains('mz-dc') && !e.classList.contains('mz-dc-on')) items.push({ k: 'stroke', ...rc(e) });
+      if (e.classList.contains('mz-dc')) items.push({ k: 'stroke', ...rc(e) });
       else if (c.a > 0) items.push({ k: 'rect', ...rc(e), fill: c.hex, zona: true });
     });
+    el.querySelectorAll('.mz-dc-bar').forEach(e => { items.push({ k: 'rect', ...rc(e), fill: '#fbb03b' }); });
     el.querySelectorAll('.mz-hora-on span').forEach(e => { const r = rc(e), bw = parseFloat(getComputedStyle(e).borderBottomWidth); items.push({ k: 'rect', x: r.x, y: r.y + r.h - bw, w: r.w, h: bw, fill: '#fbb03b' }); });
     el.querySelectorAll('.mz-sep,.mz-ev').forEach(e => { const r = rc(e); items.push({ k: 'rect', x: r.x, y: r.y, w: r.w, h: 1, fill: '#86839b' }); });
     const lg = el.querySelector('.mz-logo');

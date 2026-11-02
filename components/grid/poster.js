@@ -228,12 +228,16 @@
       cell(1,7,s+2,cta?n-2:n-1,'mz-evento-t',txt)+pestana(d,n-1,cta,(d.foto&&d.foto.color)||d.color||'amarillo',true)+pie(n,tx(d.rango)));
   }
 
-  /* semana: arriba, sobre el color, el titular. Abajo, sobre gris, siete días; el destacado lleva el acento. */
+  /* semana: arriba, sobre el color, el titular. Abajo, sobre gris, siete días; el que tiene más eventos va subrayado, con su leyenda. */
   function semana(d,n,f){
     var s=ARRIBA[f],fila=n-2,h=(hayFoto(d)?fondo(d,f,[0,0,100,yZona(d,f,n,s,true)],'naranja',true):'')+zonaA(s,hayFoto(d)?campoFoto(d,'naranja'):campo(d,'naranja'),hayFoto(d)?fotoHtml(d):'')+(hayFoto(d)?'':fondo(d,f,[0,0,100,yZona(d,f,n,s,true)],'naranja'))+cell(1,7,1,s,'mz-t-grande'+(hayFoto(d)?sobreFoto(d):tinta(d,'naranja')),'Esta<br>semana');
     d.dias.forEach(function(x,i){
-      h+=cell(i+1,i+1,fila,fila,'mz-dc'+(i===d.diaDestacado?' mz-dc-on':''),'<span class="mz-t-micro">'+tx(x[0])+'</span><b>'+tx(x[1])+'</b>',i===d.diaDestacado?acento(d,'naranja'):'');
+      var on=i===d.diaDestacado;
+      h+=cell(i+1,i+1,fila,fila,'mz-dc'+(on?' mz-dc-on':''),'<span class="mz-t-micro">'+tx(x[0])+'</span><b>'+tx(x[1])+'</b>'+(on?'<i class="mz-dc-bar"></i>':''));
     });
+    /* el subrayado marca el día con más eventos de la semana y lleva su leyenda; sin día destacado no hay ni subrayado ni leyenda */
+    var DIAS=['lunes','martes','miércoles','jueves','viernes','sábado','domingo'];
+    if(DIAS[d.diaDestacado])h+=cell(1,7,n-1,n-1,'mz-t-dato mz-leyenda',tx(d.leyenda||('Más eventos el '+DIAS[d.diaDestacado])));
     return grid(n,h+pie(n,tx(d.rango)));
   }
 
