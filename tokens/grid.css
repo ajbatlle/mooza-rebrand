@@ -28,6 +28,9 @@
   --mz-t-texto: calc(var(--mz-col) * .44 * 1cqw);     /* nombres en listas y horas */
   --mz-t-dato: calc(var(--mz-col) * .28 * 1cqw);       /* fechas, lugares, precios y pie */
   --mz-t-micro: calc(var(--mz-col) * .2 * 1cqw);     /* etiquetas y letras de día */
+  /* dos pasos de densidad, solo para láminas con mucha información (cartelera): el nombre de un evento en una lista de diez y su línea de apoyo */
+  --mz-t-lista: calc(var(--mz-col) * .24 * 1cqw);
+  --mz-t-nota: calc(var(--mz-col) * .15 * 1cqw);
 
   --mz-radio: 0;   /* todo es celda: sin bordes redondeados */
 }

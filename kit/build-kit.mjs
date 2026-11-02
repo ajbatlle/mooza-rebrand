@@ -80,13 +80,13 @@ async function leer(tipo, formato) {
     const rc = e => { const r = e.getBoundingClientRect(); return { x: r.left - box.left, y: r.top - box.top, w: r.width, h: r.height }; };
     const col = s => { const p = s.match(/rgba?\(([^)]+)\)/)[1].split(',').map(Number); return { hex: '#' + p.slice(0, 3).map(v => Math.round(v).toString(16).padStart(2, '0')).join(''), a: p.length > 3 ? p[3] : 1 }; };
     const bg = col(getComputedStyle(el).backgroundColor).hex;
-    el.querySelectorAll('.mz-zona,.mz-zona-a,.mz-mitad,.mz-ph,.mz-dc').forEach(e => {
+    el.querySelectorAll('.mz-zona,.mz-zona-a,.mz-mitad,.mz-ph,.mz-mosaico,.mz-dc').forEach(e => {
       const c = col(getComputedStyle(e).backgroundColor);
       if (e.classList.contains('mz-dc') && !e.classList.contains('mz-dc-on')) items.push({ k: 'stroke', ...rc(e) });
       else if (c.a > 0) items.push({ k: 'rect', ...rc(e), fill: c.hex, zona: true });
     });
     el.querySelectorAll('.mz-hora-on span').forEach(e => { const r = rc(e), bw = parseFloat(getComputedStyle(e).borderBottomWidth); items.push({ k: 'rect', x: r.x, y: r.y + r.h - bw, w: r.w, h: bw, fill: '#fbb03b' }); });
-    el.querySelectorAll('.mz-sep').forEach(e => { const r = rc(e); items.push({ k: 'rect', x: r.x, y: r.y, w: r.w, h: 1, fill: '#86839b' }); });
+    el.querySelectorAll('.mz-sep,.mz-ev').forEach(e => { const r = rc(e); items.push({ k: 'rect', x: r.x, y: r.y, w: r.w, h: 1, fill: '#86839b' }); });
     const lg = el.querySelector('.mz-logo');
     if (lg) { const cs = getComputedStyle(lg); items.push({ k: 'logo', ...rc(lg), text: col(cs.color).hex, iso: (() => { const t = document.createElement('i'); t.style.color = 'var(--mz-iso)'; lg.parentElement.appendChild(t); const h = col(getComputedStyle(t).color).hex; t.remove(); return h; })() }); }
     const ctx = document.createElement('canvas').getContext('2d');
@@ -177,7 +177,7 @@ async function montarPieza(pg, tipo, f, solo) {
     await document.fonts.ready;
     const v = document.getElementById('mzx'); if (v) v.remove();
     const host = document.createElement('div'); host.id = 'mzx'; host.style.cssText = 'width:' + W + 'px;position:absolute;left:0;top:0;z-index:99';
-    if (solo) { const st = document.createElement('style'); st.textContent = '#mzx .mz-grid>*:not(.mz-fondo):not(.mz-zona):not(.mz-zona-a):not(.mz-mitad):not(.mz-ph){visibility:hidden}#mzx .mz-ph>*,#mzx .mz-mitad>*,#mzx .mz-zona-a>*,#mzx .mz-zona>*{visibility:hidden}#mzx .mz-overlay{display:none}'; host.appendChild(st); }
+    if (solo) { const st = document.createElement('style'); st.textContent = '#mzx .mz-grid>*:not(.mz-fondo):not(.mz-zona):not(.mz-zona-a):not(.mz-mitad):not(.mz-ph):not(.mz-mosaico){visibility:hidden}#mzx .mz-ph>*,#mzx .mz-mosaico>*,#mzx .mz-mitad>*,#mzx .mz-zona-a>*,#mzx .mz-zona>*{visibility:hidden}#mzx .mz-overlay{display:none}'; host.appendChild(st); }
     const el = document.createElement('div'); host.appendChild(el); document.body.appendChild(host);
     MoozaPoster.mount(el, tipo, {}, f);
     await new Promise(r => setTimeout(r, 400));
@@ -187,8 +187,8 @@ async function montarPieza(pg, tipo, f, solo) {
 
 // ── plantillas: sin fondo (planas, editables) y con fondo de marca ──
 const LISTA = [], HOJA = [];
-const SUF = { '4x5': '', a3: '-a3', '1x1': '-1x1', '16x9': '-16x9', '9x16': '' };
-for (const [tipo, fs_] of Object.entries(P.ROWS)) { if (tipo === 'musa') continue; for (const f of Object.keys(fs_)) LISTA.push([tipo + SUF[f], tipo, f]); }
+const SUF = { '4x5': '', a3: '-a3', '1x1': '-1x1', '16x9': '-16x9', '9x16': '-9x16' };
+for (const [tipo, fs_] of Object.entries(P.ROWS)) { if (tipo === 'musa') continue; for (const f of Object.keys(fs_)) LISTA.push([tipo.startsWith('story') ? tipo : tipo + SUF[f], tipo, f]); }
 fs.rmSync(path.join(ROOT, 'kit/plantillas'), { recursive: true, force: true });
 for (const [nombre, tipo, f] of LISTA) {
   const { H, svg } = await plantilla(tipo, f);

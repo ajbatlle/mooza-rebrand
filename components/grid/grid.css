@@ -15,7 +15,7 @@
   grid-template-columns:repeat(7,minmax(0,1fr));
   grid-template-rows:repeat(var(--rows),minmax(0,1fr));
 }
-.mz-d-story .mz-grid,.mz-d-story .mz-overlay{--mz-pv:min(calc(var(--mz-m)*var(--mz-mv-story)*1cqw),18cqw)}
+.mz-f-9x16 .mz-grid,.mz-f-9x16 .mz-overlay,.mz-d-story .mz-grid,.mz-d-story .mz-overlay{--mz-pv:min(calc(var(--mz-m)*var(--mz-mv-story)*1cqw),18cqw)}
 .mz-grid>*{min-width:0;min-height:0;position:relative;z-index:1}
 
 /* grilla visible: se activa con .mz-show-grid en cualquier ancestro */
@@ -109,3 +109,28 @@
 .mz-grid>.mz-pestana{display:flex;align-items:center;justify-content:flex-end;color:var(--mz-azul);opacity:1;font-weight:var(--mz-peso-dato)}
 .mz-grid>.mz-pestana-i{justify-content:flex-start}
 .mz-pestana span{font-size:.82em;padding:.42em .75em;line-height:1;white-space:nowrap}
+
+
+/* ajuste de texto: data-lineas marca los textos que pueden desbordar (ver MoozaPoster.ajustar). --mz-ajuste (1 a .85) los reduce; si aun así no caben, se recortan */
+[data-lineas]{font-size:calc(var(--mz-tam,var(--mz-t-dato))*var(--mz-ajuste,1))}
+[data-lineas][data-recortado]{display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+.mz-t-titular[data-lineas]{--mz-tam:var(--mz-t-titular)}
+.mz-t-titular.mz-t-s[data-lineas]{--mz-tam:var(--mz-t-sub)}
+.mz-t-sub[data-lineas]{--mz-tam:var(--mz-t-sub)}
+.mz-bajada{line-height:1.1}
+
+/* cartelera: lámina de lista, 4:5. El título va en la zona de color; el mes y la página, en una fila; los eventos, uno por fila en dos columnas */
+.mz-cart-t{align-self:start}
+.mz-cart-mes{align-self:end;font-weight:var(--mz-peso-numero);opacity:1}
+.mz-cart-pag{text-align:right}
+.mz-ev{display:flex;flex-direction:column;justify-content:flex-start;gap:0;border-top:1px solid var(--mz-linea-clara);padding-top:calc(var(--mz-col)*.04*1cqw);align-self:start;height:100%;overflow:visible}
+.mz-ev-k,.mz-ev-l{font-size:var(--mz-t-nota);font-weight:var(--mz-peso-dato);line-height:1.2;opacity:.72;font-variant-numeric:tabular-nums}
+.mz-ev-t{--mz-tam:var(--mz-t-lista);font-family:var(--mz-palabra);font-weight:var(--mz-palabra-peso,var(--mz-peso-titular));letter-spacing:var(--mz-palabra-track,var(--mz-track-titular));line-height:1.05;display:block}
+.mz-cart-baj{align-self:start;opacity:.72}
+
+/* mes: portada del mes. Mosaico de siete por cuatro celdas: cada foto ocupa una celda de la grilla y el medianil queda del color de la pieza */
+.mz-mosaico{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));gap:calc(var(--mz-g)*1cqw)}
+.mz-mini{position:relative;overflow:hidden;min-width:0;min-height:0}
+.mz-mes-t{align-self:end}
+.mz-mes-dato{align-self:start;font-weight:var(--mz-peso-numero)}
+.mz-mes-baj{align-self:start;opacity:.72}

@@ -1,7 +1,8 @@
 /* Mooza · tipografía
-   Una sola familia: Geist (sans, licencia OFL, Google Fonts). Palabras en peso 400 y números, fechas y etiquetas en peso 500.
+   Una sola familia: Geist (sans, licencia OFL, incluida en tokens/fonts). Palabras en peso 400 y números, fechas y etiquetas en peso 500.
    La jerarquía sale del tamaño (escala en tokens/grid.css), no del peso ni de mezclar familias. */
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+/* Geist va incluida en tokens/fonts (licencia OFL): el render no depende de la red. font-display:block evita que el texto se vea con otra fuente mientras carga. */
+@font-face{font-family:'Geist';font-style:normal;font-weight:100 900;font-display:block;src:url('fonts/Geist-Variable.woff2') format('woff2')}
 
 :root{
   --mz-palabra: 'Geist', 'Helvetica Neue', Arial, sans-serif;   /* titulares, nombres de evento y textos */

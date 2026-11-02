@@ -1,6 +1,6 @@
 /* Mooza · generador de carteles sobre la grilla de siete días.
    Cada cartel se parte en dos zonas, una arriba y otra abajo (en horizontal, izquierda y derecha), y cada zona dice una sola cosa.
-   Ocho diseños: titular, numero, foto, semana, agenda, story, story-vertical y musa.
+   Diez diseños: titular, numero, foto, semana, agenda, cartelera, mes, story, story-vertical y musa.
    Uso:
      <link rel="stylesheet" href="styles.css">
      <script src="components/grid/poster.js"></script>
@@ -16,16 +16,18 @@
   var ARRIBA={'4x5':4,'a3':5,'1x1':3,'9x16':8};
   var ARRIBA_TITULAR=ARRIBA;
   var ROWS={
-    titular:{'4x5':9,'a3':11,'1x1':8,'16x9':4},
+    titular:{'4x5':9,'a3':11,'1x1':8,'16x9':4,'9x16':16},
     numero:{'4x5':9,'a3':11,'1x1':8,'16x9':4},
     foto:{'4x5':9,'a3':11,'1x1':8,'16x9':4},
     semana:{'4x5':9,'a3':11,'1x1':8},
     agenda:{'4x5':9,'a3':11},
+    cartelera:{'4x5':9},
+    mes:{'4x5':9},
     story:{'9x16':16},
     musa:{'carta':9},
     'story-vertical':{'9x16':16}
   };
-  var CLASES={titular:'mz-d-titular',numero:'mz-d-numero',foto:'mz-d-foto',semana:'mz-d-semana',agenda:'mz-d-agenda',story:'mz-d-story','story-vertical':'mz-d-story',musa:'mz-d-musa'};
+  var CLASES={titular:'mz-d-titular',numero:'mz-d-numero',foto:'mz-d-foto',semana:'mz-d-semana',agenda:'mz-d-agenda',cartelera:'mz-d-cartelera',mes:'mz-d-mes',story:'mz-d-story','story-vertical':'mz-d-story',musa:'mz-d-musa'};
 
   /* datos de ejemplo. Los eventos, salas y precios son inventados. */
   var EJEMPLO={
@@ -40,6 +42,20 @@
       {h:'22:00',t:'Glam Fest en Biker Chop',v:'Biker Chop',p:'$8.000'},
       {h:'23:30',t:'Noche de cumbia en vivo',v:'Club Subterráneo',p:'$6.000'}
     ]},
+    bajada:'Una semana de conciertos, obras y ferias en Santiago. Elige con calma y reserva a tiempo.',
+    cartelera:{titulo:'Folclore y música de raíz',mes:'Noviembre 2026',pag:'1 / 2',pie:'Toda la agenda en mooza.cl',eventos:[
+      {k:'Jueves 5 · Música',t:'Sexteto bandoneón en vivo',l:'Bar Los Álamos',h:'20:00'},
+      {k:'Viernes 6',t:'Ciclo de guitarra: música de cámara latinoamericana',l:'Sala Corona',h:'19:30'},
+      {k:'Domingo 8 · Música',t:'Cueca chilena para toda la familia',l:'Centro Cultural Norte',h:'15:00'},
+      {k:'Miércoles 11',t:'Noche de tango y milonga',l:'Café del Barrio',h:'21:00'},
+      {k:'Martes 17 · Música',t:'Festival de fado',l:'Teatro Mayor',h:'20:00'},
+      {k:'Sábado 21',t:'Cierre del ciclo de música de cámara',l:'Teatro Municipal',h:'20:00'},
+      {k:'Viernes 20',t:'Ronda de cantores populares',l:'Casa de la Cultura',h:'19:00'},
+      {k:'Sábado 21',t:'Murga y zamba en el aula magna',l:'Liceo Central',h:'18:00'},
+      {k:'Jueves 26',t:'Concierto de arpa y voz',l:'Iglesia San Rafael',h:'19:30'},
+      {k:'Domingo 29',t:'Tarde de payadores',l:'Parque del Sur',h:'17:00'}
+    ]},
+    mes:{titulo:'Noviembre 2026',dato:'+900 eventos en más de 300 espacios este mes',bajada:'Revisa nuestra selección de recomendaciones<br>Región Metropolitana de Santiago',fotos:[]},
     musa:{src:'',corte:'v',colores:['gris','amarillo']},
     story:{categoria:'Música',cartelera:'Cartelera Música de raíz',titulo:'Concierto de Juan Falú en Sala Isidora Zegers',
       lugar:'Sala Isidora Zegers • Santiago',fecha:'Martes 27 oct, 19:30',precio:'desde $15.895',
@@ -57,8 +73,8 @@
     return '<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="mz-lockup" viewBox="0 0 629.21 159.59"><g class="mz-lt"><path d="M180.62,102.9c0-7.2-.18-13.4-.44-19.04-.1-2.26,1.71-4.14,3.98-4.14h8.98c2.08,0,3.8,1.6,3.97,3.67l.61,7.78h.46c3.76-6.05,10.85-13.21,24.01-13.21,10.32,0,18.27,5.74,21.63,14.38h.32c2.73-4.27,6.01-7.53,9.53-9.79,4.44-2.98,9.35-4.58,15.85-4.58,12.89,0,26.02,8.83,26.02,33.83v41.89c0,2.21-1.79,4-4,4h-11.22c-2.21,0-4-1.79-4-4v-39.12c0-13-4.5-20.62-13.91-20.62-6.74,0-11.68,4.75-13.71,10.38-.63,1.88-1,4.37-1,6.58v42.78c0,2.21-1.79,4-4,4h-11.22c-2.21,0-4-1.79-4-4v-41.07c0-10.98-4.39-18.66-13.45-18.66-7.39,0-12.33,5.79-14.18,11.13-.7,1.98-.98,4.31-.98,6.52v42.08c0,2.21-1.79,4-4,4h-11.22c-2.21,0-4-1.79-4-4v-50.77Z"/><path d="M390.48,117.93c0,28.65-20.11,41.5-40.05,41.5-21.99,0-39.01-15.18-39.01-40.16s16.84-41.32,40.34-41.32,38.72,16.34,38.72,39.98ZM331.68,118.78c0,15,7.49,26.34,19.38,26.34s19.15-10.91,19.15-26.6c0-12.25-5.42-26.24-19.02-26.24s-19.51,13.5-19.51,26.5Z"/><path d="M481.12,117.93c0,28.65-20.11,41.5-40.05,41.5-21.99,0-39.01-15.18-39.01-40.16s16.84-41.32,40.34-41.32,38.72,16.34,38.72,39.98ZM422.32,118.78c0,15,7.49,26.34,19.38,26.34s19.15-10.91,19.15-26.6c0-12.25-5.42-26.24-19.02-26.24s-19.51,13.5-19.51,26.5Z"/><path d="M488.69,147.67c0-.89.3-1.76.85-2.47l28.49-36.37c4.01-4.81,7.34-8.63,11.41-13.07v-.34h-33.84c-2.21,0-4-1.79-4-4v-7.69c0-2.21,1.79-4,4-4h53.87c2.22,0,4.01,1.8,4,4.02l-.03,6.63c0,.89-.3,1.75-.85,2.45l-27.73,35.5c-3.84,4.67-7.51,9.16-11.51,13.32v.34h37.06c2.21,0,4,1.79,4,4v7.69c0,2.21-1.79,4-4,4h-57.72c-2.21,0-4-1.79-4-4v-6Z"/><path d="M615.44,157.68c-1.97,0-3.65-1.44-3.96-3.39l-.82-5.29h-.47c-4.73,6.15-12.88,10.45-22.97,10.45-15.82,0-24.58-11.3-24.58-23.19,0-19.67,17.53-29.63,46.24-29.51v-1.29c0-5.12-2.03-13.64-15.83-13.59-5.85,0-11.92,1.44-16.83,3.63-2.24,1-4.83-.1-5.54-2.44l-1.53-5.01c-.58-1.9.29-3.94,2.09-4.8,6.04-2.9,14.85-5.28,25.21-5.28,25,0,32.14,15.77,32.14,32.87v28.07c0,5.14.19,10.16.62,14.38.24,2.37-1.59,4.4-3.97,4.4h-9.79ZM609.4,119.5c-13.91-.19-27.21,2.75-27.21,14.62,0,7.63,5.01,11.23,11.24,11.23,7.87,0,13.54-5.08,15.42-10.79.42-1.37.55-2.92.55-4.28v-10.77Z"/></g><path class="mz-li" d="M152.67,5.56c-9.81-7.28-23.19-7.42-33.14-.33h0c-12.5,8.9-15.89,26.01-7.73,39.01l13.66,21.74c.44.7.43,1.6-.02,2.29l-8.68,13.25c-.84,1.28-2.73,1.28-3.56,0l-40.65-62.78C59.87-.87,33.03-5.22,14.8,9.36h0C-1.04,22.04-4.68,44.68,6.39,61.68l59.33,91.11c5.93,9.11,19.28,9.06,25.15-.09l69.02-107.64c8.35-13.02,5.19-30.28-7.23-39.51ZM80.18,145.84c-.44.69-1.09,1.04-1.91,1.04s-1.45-.35-1.9-1.03L17.04,54.75c-7.54-11.58-5.09-26.83,5.7-35.46,4.79-3.84,10.55-5.86,16.66-5.86,9.13,0,17.54,4.56,22.48,12.21l40.65,62.78c2.34,3.61,6.06,5.98,10.23,6.61l-32.59,50.82ZM149.2,38.2l-13.22,20.62-13.41-21.35c-4.58-7.29-2.67-16.91,4.34-21.9,2.63-1.88,5.74-2.87,8.97-2.87s6.54,1.05,9.22,3.05c7.03,5.22,8.83,15.08,4.1,22.44Z"/></symbol><symbol id="mz-iso" viewBox="0 0 168.34 163.27"><path class="mz-li" d="M156.19,5.68c-10.03-7.45-23.72-7.59-33.9-.34h0c-12.79,9.11-16.26,26.61-7.91,39.91l13.97,22.24c.45.72.44,1.64-.02,2.35l-8.88,13.56c-.86,1.31-2.79,1.31-3.64,0L74.22,19.16C61.25-.89,33.79-5.34,15.15,9.58h0C-1.07,22.55-4.79,45.71,6.54,63.11l60.7,93.2c6.07,9.32,19.73,9.27,25.73-.09l70.61-110.12c8.54-13.32,5.31-30.98-7.39-40.42ZM82.03,149.2c-.45.71-1.11,1.07-1.95,1.07s-1.49-.35-1.94-1.05L17.43,56.01c-7.72-11.85-5.21-27.45,5.83-36.28,4.9-3.92,10.8-6,17.04-6,9.34,0,17.94,4.67,23,12.49l41.58,64.23c2.39,3.69,6.2,6.12,10.47,6.76l-33.34,51.99ZM152.64,39.08l-13.53,21.1-13.72-21.84c-4.68-7.46-2.73-17.3,4.44-22.41,2.69-1.92,5.87-2.93,9.18-2.93s6.69,1.08,9.44,3.12c7.19,5.34,9.03,15.42,4.2,22.96Z"/></symbol><symbol id="mz-oo" viewBox="311 77 171 83"><g class="mz-lt"><path d="M390.48,117.93c0,28.65-20.11,41.5-40.05,41.5-21.99,0-39.01-15.18-39.01-40.16s16.84-41.32,40.34-41.32,38.72,16.34,38.72,39.98ZM331.68,118.78c0,15,7.49,26.34,19.38,26.34s19.15-10.91,19.15-26.6c0-12.25-5.42-26.24-19.02-26.24s-19.51,13.5-19.51,26.5Z"/><path d="M481.12,117.93c0,28.65-20.11,41.5-40.05,41.5-21.99,0-39.01-15.18-39.01-40.16s16.84-41.32,40.34-41.32,38.72,16.34,38.72,39.98ZM422.32,118.78c0,15,7.49,26.34,19.38,26.34s19.15-10.91,19.15-26.6c0-12.25-5.42-26.24-19.02-26.24s-19.51,13.5-19.51,26.5Z"/></g></symbol></defs></svg>'+FILTRO_TINTA;
   }
 
-  function cell(c1,c2,r1,r2,cls,html,st){
-    return '<div class="'+(cls||'')+'" style="grid-column:'+c1+'/'+(c2+1)+';grid-row:'+r1+'/'+(r2+1)+';'+(st||'')+'">'+(html||'')+'</div>';
+  function cell(c1,c2,r1,r2,cls,html,st,at){
+    return '<div class="'+(cls||'')+'" style="grid-column:'+c1+'/'+(c2+1)+';grid-row:'+r1+'/'+(r2+1)+';'+(st||'')+'"'+(at||'')+'>'+(html||'')+'</div>';
   }
   function overlay(rows){return '<div class="mz-overlay" style="--rows:'+rows+'">'+new Array(7*rows+1).join('<i></i>')+'</div>'}
   function grid(rows,inner){return '<div class="mz-grid" style="--rows:'+rows+'">'+inner+'</div>'+overlay(rows)}
@@ -72,6 +88,9 @@
        texto  'blanco' si el titular va encima de la foto y esta es oscura.
      Sin imagen se muestra el marcador: la zona de color y una nota. */
   function esc(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}
+  /* texto de un dato: se escapa todo (un & o un < en el nombre de un evento no rompe la lámina) y solo se deja pasar <br> para cortar líneas.
+     Los datos se entregan como texto plano, no como HTML. */
+  function tx(s){return s===undefined||s===null?'':esc(s).replace(/&lt;br\s*\/?>/gi,'<br>')}
   function hayFoto(d){return !!(d.foto&&d.foto.src)}
   function fotoHtml(d){
     if(!hayFoto(d))return 'foto del evento';
@@ -161,52 +180,52 @@
      Nada más entra en esa fila, así que el logo nunca choca. oscuro: el pie está sobre el color oscuro. */
   function pie(n,texto,oscuro){
     var k=oscuro?' mz-sobre-oscuro':'';
-    return cell(1,2,n,n,'mz-pie-logo'+k,LOGO)+(texto?cell(5,7,n,n,'mz-t-dato mz-fecha-pie'+k,texto):'');
+    return cell(1,2,n,n,'mz-pie-logo'+k,LOGO)+(texto?cell(texto.length>14?4:5,7,n,n,'mz-t-dato mz-fecha-pie'+k,texto):'');
   }
 
   /* titular: arriba, el titular sobre el color. Abajo, sobre gris, la fecha. */
   function titular(d,n,f){
     var k=tinta(d,'azul');
-    if(f==='16x9')return grid(n,mitad(campo(d,'azul'))+fondo(d,f,[50,0,50,altura(f)],'azul')+cell(1,3,1,3,'mz-t-grande',d.titular)+cell(5,7,1,1,'mz-t-sub'+k,d.rango)+
+    if(f==='16x9')return grid(n,mitad(campo(d,'azul'))+fondo(d,f,[50,0,50,altura(f)],'azul')+cell(1,3,1,3,'mz-t-grande',tx(d.titular))+cell(5,7,1,1,'mz-t-sub'+k,tx(d.rango))+
       cell(1,2,n,n,'mz-pie-logo',LOGO)+cell(5,7,n,n,'mz-t-dato mz-fecha-pie'+k,'mooza.cl'));
     var s=ARRIBA_TITULAR[f];
-    return grid(n,(hayFoto(d)?fondo(d,f,[0,0,100,yZona(d,f,n,s,true)],'azul',true):'')+zonaA(s,hayFoto(d)?campoFoto(d,'amarillo'):campo(d,'azul'),hayFoto(d)?fotoHtml(d):'')+(hayFoto(d)?'':fondo(d,f,[0,0,100,yZona(d,f,n,s,true)],'azul'))+cell(1,7,1,s,'mz-t-grande'+(hayFoto(d)?sobreFoto(d):k),d.titular)+
-      cell(1,7,s+2,s+2,'mz-t-sub mz-abajo',d.rango)+pie(n,'mooza.cl'));
+    return grid(n,(hayFoto(d)?fondo(d,f,[0,0,100,yZona(d,f,n,s,true)],'azul',true):'')+zonaA(s,hayFoto(d)?campoFoto(d,'amarillo'):campo(d,'azul'),hayFoto(d)?fotoHtml(d):'')+(hayFoto(d)?'':fondo(d,f,[0,0,100,yZona(d,f,n,s,true)],'azul'))+cell(1,7,1,s,'mz-t-grande'+(hayFoto(d)?sobreFoto(d):k),tx(d.titular))+
+      (f==='9x16'&&d.bajada?cell(1,7,s+2,n-2,'mz-t-sub mz-abajo mz-bajada',tx(d.bajada),'',' data-lineas="'+(n-2-s-1)*1+'"'):cell(1,7,s+2,s+2,'mz-t-sub mz-abajo',tx(d.rango)))+pie(n,'mooza.cl'));
   }
 
   /* número: arriba, sobre gris, el rango de la semana, enorme. Abajo, sobre el color, qué es. */
   function numero(d,n,f){
     var k=tinta(d,'amarillo');
-    if(f==='16x9')return grid(n,mitad(campo(d,'amarillo'))+fondo(d,f,[50,0,50,altura(f)],'amarillo')+cell(1,3,1,2,'mz-t-grande','Esta<br>semana')+cell(5,7,1,3,'mz-t-display'+k,d.corto)+
+    if(f==='16x9')return grid(n,mitad(campo(d,'amarillo'))+fondo(d,f,[50,0,50,altura(f)],'amarillo')+cell(1,3,1,2,'mz-t-grande','Esta<br>semana')+cell(5,7,1,3,'mz-t-display'+k,tx(d.corto))+
       cell(1,2,n,n,'mz-pie-logo',LOGO)+cell(5,7,n,n,'mz-t-dato mz-fecha-pie'+k,'mooza.cl'));
     var s=ARRIBA[f];
-    return grid(n,zona(s+1,n,campo(d,'amarillo'))+(function(){var y=yZona(d,f,n,s,false);return fondo(d,f,[0,y,100,altura(f)-y],'amarillo')})()+cell(1,7,1,s,'mz-t-display',d.corto)+
+    return grid(n,zona(s+1,n,campo(d,'amarillo'))+(function(){var y=yZona(d,f,n,s,false);return fondo(d,f,[0,y,100,altura(f)-y],'amarillo')})()+cell(1,7,1,s,'mz-t-display',tx(d.corto))+
       cell(1,7,s+2,s+2,'mz-t-titular mz-abajo'+k,'Esta semana')+pie(n,'mooza.cl',k));
   }
 
   /* foto: arriba, la foto (es el color de la pieza). Abajo, sobre gris, el nombre del evento y sus datos. */
   function foto(d,n,f){
-    var txt='<span class="mz-t-titular">'+d.evento.nombre+'</span><span class="mz-t-dato">'+d.evento.meta+'</span>';
+    var txt='<span class="mz-t-titular">'+tx(d.evento.nombre)+'</span><span class="mz-t-dato">'+tx(d.evento.meta)+'</span>';
     /* en horizontal el texto tiene tres columnas: el precio pasa a su propia línea */
     if(f==='16x9')return grid(n,fondo(d,f,[50,0,50,altura(f)],'amarillo',true)+mitad(campoFoto(d,'amarillo'),'mz-ph',fotoHtml(d))+cell(1,3,1,3,'mz-evento-t',txt.replace(' • desde','<br>desde'))+pie(n,null));
     var s=ARRIBA[f];
     var cta=d.cta&&f==='a3'?d.cta:'';
     return grid(n,fondo(d,f,[0,0,0,0],'amarillo',true)+cell(1,7,1,s,'mz-ph',fotoHtml(d),'background:'+campoFoto(d,'amarillo'))+
-      cell(1,7,s+2,cta?n-2:n-1,'mz-evento-t',txt)+pestana(d,n-1,cta,(d.foto&&d.foto.color)||d.color||'amarillo',true)+pie(n,d.rango));
+      cell(1,7,s+2,cta?n-2:n-1,'mz-evento-t',txt)+pestana(d,n-1,cta,(d.foto&&d.foto.color)||d.color||'amarillo',true)+pie(n,tx(d.rango)));
   }
 
   /* semana: arriba, sobre el color, el titular. Abajo, sobre gris, siete días; el destacado lleva el acento. */
   function semana(d,n,f){
     var s=ARRIBA[f],fila=n-2,h=(hayFoto(d)?fondo(d,f,[0,0,100,yZona(d,f,n,s,true)],'naranja',true):'')+zonaA(s,hayFoto(d)?campoFoto(d,'naranja'):campo(d,'naranja'),hayFoto(d)?fotoHtml(d):'')+(hayFoto(d)?'':fondo(d,f,[0,0,100,yZona(d,f,n,s,true)],'naranja'))+cell(1,7,1,s,'mz-t-grande'+(hayFoto(d)?sobreFoto(d):tinta(d,'naranja')),'Esta<br>semana');
     d.dias.forEach(function(x,i){
-      h+=cell(i+1,i+1,fila,fila,'mz-dc'+(i===d.diaDestacado?' mz-dc-on':''),'<span class="mz-t-micro">'+x[0]+'</span><b>'+x[1]+'</b>',i===d.diaDestacado?acento(d,'naranja'):'');
+      h+=cell(i+1,i+1,fila,fila,'mz-dc'+(i===d.diaDestacado?' mz-dc-on':''),'<span class="mz-t-micro">'+tx(x[0])+'</span><b>'+tx(x[1])+'</b>',i===d.diaDestacado?acento(d,'naranja'):'');
     });
-    return grid(n,h+pie(n,d.rango));
+    return grid(n,h+pie(n,tx(d.rango)));
   }
 
   /* agenda: arriba, sobre el color, el día. Abajo, sobre gris, hasta tres eventos. */
   function agenda(d,n,f){
-    var a=d.agenda,h=zonaA(2,campo(d,'amarillo'))+fondo(d,f,[0,0,100,yZona(d,f,n,2,true)],'amarillo')+cell(1,7,1,2,'mz-cabeza'+tinta(d,'amarillo'),'<span class="mz-t-grande mz-num">'+a.n+'</span><span class="mz-t-titular">'+a.dia+'</span>');
+    var a=d.agenda,h=zonaA(2,campo(d,'amarillo'))+fondo(d,f,[0,0,100,yZona(d,f,n,2,true)],'amarillo')+cell(1,7,1,2,'mz-cabeza'+tinta(d,'amarillo'),'<span class="mz-t-grande mz-num">'+tx(a.n)+'</span><span class="mz-t-titular">'+tx(a.dia)+'</span>');
     /* dos eventos: filas 4 y 7, con una fila de aire entre ellos.
        Tres eventos: parten en la fila 3, cada uno con una línea fina arriba (salvo el primero, que ya tiene el borde de la zona)
        y el mismo respiro bajo la línea. Se reparten hasta el pie: en A3 sobra una fila entre ellos. */
@@ -214,10 +233,10 @@
     ev.forEach(function(e,i){
       var r=ini+i*paso,k=tres?' mz-e3':'';
       if(tres&&i)h+=cell(1,7,r,r,'mz-sep');
-      h+=cell(1,2,r,r,'mz-hora'+k+(e.f?' mz-hora-on':''),e.h?'<span>'+e.h+'</span>':'')+
-         cell(3,7,r,r+1,'mz-evento-t'+k,'<span class="mz-t-texto">'+e.t+'</span><span class="mz-t-dato">'+e.v+(e.p?' • '+e.p:'')+'</span>');
+      h+=cell(1,2,r,r,'mz-hora'+k+(e.f?' mz-hora-on':''),e.h?'<span>'+tx(e.h)+'</span>':'')+
+         cell(3,7,r,r+1,'mz-evento-t'+k,'<span class="mz-t-texto">'+tx(e.t)+'</span><span class="mz-t-dato">'+tx(e.v)+(e.p?' • '+tx(e.p):'')+'</span>');
     });
-    return grid(n,h+pie(n,a.pag||''));
+    return grid(n,h+pie(n,tx(a.pag||'')));
   }
 
   /* pestaña: un aviso de una sola fila, justo sobre el pie. Mide cinco columnas, lleva un color plano distinto al de la foto
@@ -237,11 +256,66 @@
         base=fondo(d,f,[0,0,0,0],'naranja',true),color='background:'+campoFoto(d,'naranja'),
         h=vertical?10:(t.descripcion?7:9),r=h+1;
     return grid(16,base+cell(1,7,1,h,'mz-ph',fotoHtml(d),color)+
-      cell(1,4,r,r,'mz-t-dato mz-etiqueta',t.categoria||'')+(t.cartelera?cell(5,7,r,r,'mz-t-dato mz-etiqueta',t.cartelera):'')+
-      cell(1,7,r+1,r+2,'mz-t-titular mz-t-s',t.titulo)+
-      cell(1,4,r+3,r+3,'mz-t-dato mz-dato-s',t.lugar||t.meta)+(t.lugar?cell(5,7,r+3,r+3,'mz-t-dato mz-dato-s',[t.fecha,t.precio].filter(Boolean).join('<br>')):'')+
+      cell(1,4,r,r,'mz-t-dato mz-etiqueta',tx(t.categoria))+(t.cartelera?cell(5,7,r,r,'mz-t-dato mz-etiqueta',tx(t.cartelera)):'')+
+      cell(1,7,r+1,r+2,'mz-t-titular mz-t-s',tx(t.titulo),'',' data-lineas="2"')+
+      cell(1,4,r+3,r+3,'mz-t-dato mz-dato-s',tx(t.lugar||t.meta))+(t.lugar?cell(5,7,r+3,r+3,'mz-t-dato mz-dato-s',[t.fecha,t.precio].filter(Boolean).map(tx).join('<br>')):'')+
       (t.descripcion&&!vertical?cell(1,7,r+5,r+6,'mz-t-dato mz-desc',esc(t.descripcion)):'')+
       pestana(d,16,cta,sobre)+pie(16,null));
+  }
+
+  /* cartelera: la lámina de una cartelera del mes, con mucha información. Arriba, sobre el color, el nombre de la cartelera (hasta dos líneas).
+     Abajo, sobre gris, el mes y la página, y hasta diez eventos en dos columnas (la 1 a la 3 y la 5 a la 7), uno por fila y con una línea fina arriba.
+     Con bajada, la quinta fila de cada columna se la lleva y caben ocho. Sin ilustración: la musa no va en esta lámina (ver "Ilustración" en el readme).
+     datos.cartelera = {titulo, mes, pag, bajada, pie, eventos:[{k, t, l, h}]}
+       k  la línea de arriba: día y, si hace falta, categoría ("Martes 17 · Música")
+       t  el nombre del evento, hasta dos líneas
+       l  el lugar; h, la hora */
+  function cartelera(d,n,f){
+    var c=d.cartelera,k=tinta(d,'azul'),por=c.bajada?4:5,
+        h=zonaA(2,campo(d,'azul'))+fondo(d,f,[0,0,100,yZona(d,f,n,2,true)],'azul')+
+          cell(1,7,1,2,'mz-t-titular mz-cart-t'+k,tx(c.titulo),'',' data-lineas="2"')+
+          cell(1,4,3,3,'mz-t-dato mz-cart-mes',tx(c.mes))+cell(5,7,3,3,'mz-t-dato mz-cart-mes mz-cart-pag',tx(c.pag));
+    (c.eventos||[]).slice(0,por*2).forEach(function(e,i){
+      var col=i<por?1:5,r=4+i%por;
+      h+=cell(col,col+2,r,r,'mz-ev','<span class="mz-ev-k">'+tx(e.k)+'</span><span class="mz-ev-t" data-lineas="2">'+tx(e.t)+'</span><span class="mz-ev-l">'+tx([e.l,e.h].filter(Boolean).join(' • '))+'</span>');
+    });
+    if(c.bajada)h+=cell(1,7,8,8,'mz-t-dato mz-cart-baj',tx(c.bajada));
+    return grid(n,h+pie(n,tx(c.pie||'mooza.cl')));
+  }
+
+  /* mes: la portada del post del mes. Arriba, un mosaico de hasta 28 fotos, una por celda de la grilla (siete columnas por cuatro filas).
+     Abajo, sobre gris, el mes, un dato y una bajada. Con fotos nunca es azul: la tinta azul se pierde sobre azul.
+     datos.mes = {titulo, dato, bajada, pie, fotos:[{src, pos, listo}]} */
+  function mes(d,n,f){
+    var m=d.mes,col=d.color&&d.color!=='azul'?d.color:'amarillo',fs=m.fotos||[],h=fondo(d,f,[0,0,0,0],col,true),mos='';
+    for(var i=0;i<28;i++)mos+='<div class="mz-mini">'+(fs[i]?fotoHtml({foto:fs[i]}):'')+'</div>';
+    h+=cell(1,7,1,4,'mz-mosaico',mos,'background:var(--mz-'+col+')');
+    return grid(n,h+cell(1,7,5,6,'mz-t-titular mz-mes-t',tx(m.titulo),'',' data-lineas="1"')+
+      cell(1,7,7,7,'mz-t-dato mz-mes-dato',tx(m.dato))+(m.bajada?cell(1,7,8,8,'mz-t-dato mz-mes-baj',tx(m.bajada)):'')+pie(n,tx(m.pie||'mooza.cl')));
+  }
+
+  /* ajuste de texto. Cada texto que puede desbordar lleva data-lineas (el máximo de líneas de su celda).
+     Primero se reduce, en pasos de 3 %, hasta el 85 % de su tamaño; si aún no cabe, se recorta con puntos suspensivos.
+     Mide contra la celda asignada, así que corre cuando la fuente ya cargó (mount lo hace solo).
+     Devuelve los avisos: un objeto por texto que se redujo o se recortó, para que quien arma la pieza lo vea. */
+  function lineasDe(el){
+    var c=el.style.webkitLineClamp,m=el.style.maxHeight;
+    el.style.webkitLineClamp='unset';el.style.maxHeight='none';
+    var h=el.getBoundingClientRect().height,lh=parseFloat(getComputedStyle(el).lineHeight)||h;
+    el.style.webkitLineClamp=c;el.style.maxHeight=m;
+    return Math.round(h/lh);
+  }
+  function ajustar(raiz,minimo){
+    var min=minimo||.85,avisos=[];
+    Array.prototype.forEach.call(raiz.querySelectorAll('[data-lineas]'),function(el){
+      var max=+el.getAttribute('data-lineas'),k=1;
+      el.style.removeProperty('--mz-ajuste');el.removeAttribute('data-recortado');
+      while(lineasDe(el)>max&&k>min+1e-6){k=Math.round((k-.03)*100)/100;el.style.setProperty('--mz-ajuste',k)}
+      var corta=lineasDe(el)>max;
+      if(corta){el.setAttribute('data-recortado','1');el.style.webkitLineClamp=max}
+      if(k<1||corta)avisos.push({texto:el.textContent,escala:k,recortado:corta});
+    });
+    return avisos;
   }
 
   /* musa: una ilustración sola que cruza el corte entre dos colores, con el pie de siempre (logo a la izquierda, mooza.cl a la derecha).
@@ -259,7 +333,7 @@
       (m.src?'<img class="mz-musa-img" src="'+m.src+'" alt="'+(m.alt||'')+'" style="left:'+x+'%;top:'+y+'%;width:'+w+'%">':'')+pie(n,'mooza.cl'));
   }
 
-  var BUILD={titular:titular,numero:numero,foto:foto,semana:semana,agenda:agenda,story:story,'story-vertical':function(d,n,f){var o={};for(var k in d)o[k]=d[k];o.foto=Object.assign({},d.foto,{vertical:true});return story(o,n,f)},musa:musa};
+  var BUILD={titular:titular,numero:numero,foto:foto,semana:semana,agenda:agenda,cartelera:cartelera,mes:mes,story:story,'story-vertical':function(d,n,f){var o={};for(var k in d)o[k]=d[k];o.foto=Object.assign({},d.foto,{vertical:true});return story(o,n,f)},musa:musa};
 
   function merge(d){var o={};for(var k in EJEMPLO)o[k]=EJEMPLO[k];for(var j in (d||{}))o[j]=d[j];return o}
   function formatoDe(tipo,formato){return formato||(tipo.indexOf('story')===0?'9x16':'4x5')}
@@ -287,10 +361,13 @@
     for(k in (datos||{}))dd[k]=datos[k];
     dd._m=cs&&parseFloat(cs.getPropertyValue('--mz-m'))||6;dd._g=cs&&parseFloat(cs.getPropertyValue('--mz-g'))||1.2;
     el.innerHTML=html(tipo,dd,f);
+    function fit(){el.mzAvisos=ajustar(el);el.setAttribute('data-mz-listo','1');if(typeof CustomEvent==='function')el.dispatchEvent(new CustomEvent('mz-ajustado',{detail:el.mzAvisos}))}
+    el.removeAttribute('data-mz-listo');
+    if(typeof document!=='undefined'&&document.fonts&&document.fonts.ready){if(document.fonts.status==='loaded')fit();document.fonts.ready.then(fit)}else fit();
     return el;
   }
 
-  var api={FORMATOS:FORMATOS,ROWS:ROWS,ARRIBA:ARRIBA,ARRIBA_TITULAR:ARRIBA_TITULAR,EJEMPLO:EJEMPLO,sprite:sprite,html:html,mount:mount,fondoLogo:fondoLogo};
+  var api={FORMATOS:FORMATOS,ROWS:ROWS,ARRIBA:ARRIBA,ARRIBA_TITULAR:ARRIBA_TITULAR,EJEMPLO:EJEMPLO,ajustar:ajustar,sprite:sprite,html:html,mount:mount,fondoLogo:fondoLogo};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
   root.MoozaPoster=api;
 })(typeof window!=='undefined'?window:globalThis);
