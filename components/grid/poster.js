@@ -36,7 +36,7 @@
     titular:'Agenda<br>cultural',
     dias:[['L',26],['M',27],['M',28],['J',29],['V',30],['S',31],['D',1]],
     diaDestacado:4,
-    evento:{nombre:'Cuarteto de<br>jazz en vivo',meta:'Teatro del Parque<br>Vie 30 • 21:00 • desde $8.000'},
+    evento:{nombre:'Cuarteto<br>de jazz en vivo',meta:'Teatro del Parque<br>Vie 30 • 21:00 • desde $8.000'},
     agenda:{dia:'Sábado',n:20,pag:'2/4',eventos:[
       {h:'22:00',t:'El alma al aire II: canciones de Alejandro Sanz',v:'Bar La Otra Casa',p:'$10.000'},
       {h:'22:00',t:'Glam Fest en Biker Chop',v:'Biker Chop',p:'$8.000'},
@@ -87,13 +87,22 @@
        color  color de la zona bajo la foto: 'amarillo' o 'naranja' (por defecto el del diseño).
        texto  'blanco' si el titular va encima de la foto y esta es oscura.
      Sin imagen se muestra el marcador: la zona de color y una nota. */
+  var CONECTORES='a|al|ante|bajo|con|contra|de|del|desde|durante|e|el|en|entre|hacia|hasta|la|las|lo|los|mediante|ni|o|para|por|que|según|sin|sobre|su|sus|tras|u|un|una|unos|unas|y';
   function esc(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}
   /* texto de un dato: se escapa todo (un & o un < en el nombre de un evento no rompe la lámina) y solo se deja pasar <br> para cortar líneas.
      Los datos se entregan como texto plano, no como HTML. */
-  function tx(s){return s===undefined||s===null?'':esc(s).replace(/&lt;br\s*\/?>/gi,'<br>')}
+  function tx(s){
+    if(s===undefined||s===null)return '';
+    var t=esc(s).replace(/&lt;br\s*\/?>/gi,'<br>');
+    /* una palabra conectora nunca queda sola ni al final de una línea: se pega a la palabra que sigue.
+       Si el dato trae un <br> justo después de un conector, el corte se corre antes del conector. */
+    t=t.replace(new RegExp('[ \\u00a0]+('+CONECTORES+')[ \\u00a0]*<br>','gi'),'<br>$1 ');
+    t=t.replace(new RegExp('(\\d)[ \\u00a0]+(de)[ \\u00a0]+','gi'),'$1\u00a0$2\u00a0');
+    return t.replace(new RegExp('(^|[ \\u00a0>])('+CONECTORES+')[ \\u00a0]+(?=[^ \\u00a0<])','gi'),'$1$2\u00a0');
+  }
   function hayFoto(d){return !!(d.foto&&d.foto.src)}
   function fotoHtml(d){
-    if(!hayFoto(d))return 'foto del evento';
+    if(!hayFoto(d))return 'foto del evento';
     var f=d.foto;
     return '<img class="mz-foto" src="'+esc(f.src)+'" alt="'+esc(f.alt||'')+'" style="'+(f.pos?'object-position:'+esc(f.pos)+';':'')+(f.listo?'':'filter:url(#mz-tinta)')+'">';
   }
@@ -249,7 +258,7 @@
   function pestana(d,fila,texto,sobre,izq){
     if(!texto)return '';
     var c=(d.story&&d.story.ctaColor)||sobre;
-    return cell(izq?1:3,7,fila,fila,'mz-pestana mz-t-dato'+(izq?' mz-pestana-i':''),'<span style="background:var(--mz-'+c+')">'+esc(texto)+'</span>');
+    return cell(izq?1:3,7,fila,fila,'mz-pestana mz-t-dato'+(izq?' mz-pestana-i':''),'<span style="background:var(--mz-'+c+')">'+tx(texto)+'</span>');
   }
   /* story 9:16. Dos composiciones, según la foto.
      Apaisada (por defecto): arriba la foto de siete columnas; debajo la categoría a la izquierda y la cartelera a la derecha, el título,
@@ -261,10 +270,10 @@
         base=fondo(d,f,[0,0,0,0],'naranja',true),color='background:'+campoFoto(d,'naranja'),
         h=vertical?10:(t.descripcion?7:9),r=h+1;
     return grid(16,base+cell(1,7,1,h,'mz-ph',fotoHtml(d),color)+
-      cell(1,4,r,r,'mz-t-dato mz-etiqueta',tx(t.categoria))+(t.cartelera?cell(5,7,r,r,'mz-t-dato mz-etiqueta',tx(t.cartelera)):'')+
+      cell(1,4,r,r,'mz-t-dato mz-etiqueta',tx(t.categoria),'',' data-lineas="1"')+(t.cartelera?cell(5,7,r,r,'mz-t-dato mz-etiqueta',tx(t.cartelera),'',' data-lineas="1"'):'')+
       cell(1,7,r+1,r+2,'mz-t-titular mz-t-s',tx(t.titulo),'',' data-lineas="2"')+
       cell(1,4,r+3,r+3,'mz-t-dato mz-dato-s',tx(t.lugar||t.meta),'',' data-lineas="2"')+(t.lugar?cell(5,7,r+3,r+3,'mz-t-dato mz-dato-s',[t.fecha,t.precio].filter(Boolean).map(tx).join('<br>'),'',' data-lineas="2"'):'')+
-      (t.descripcion&&!vertical?cell(1,7,r+5,r+6,'mz-t-dato mz-desc',esc(t.descripcion)):'')+
+      (t.descripcion&&!vertical?cell(1,7,r+5,r+6,'mz-t-dato mz-desc',tx(t.descripcion)):'')+
       pestana(d,16,cta,sobre)+pie(16,null));
   }
 
@@ -315,8 +324,8 @@
     Array.prototype.forEach.call(raiz.querySelectorAll('[data-lineas]'),function(el){
       var max=+el.getAttribute('data-lineas'),k=1;
       el.style.removeProperty('--mz-ajuste');el.removeAttribute('data-recortado');
-      while(lineasDe(el)>max&&k>min+1e-6){k=Math.round((k-.03)*100)/100;el.style.setProperty('--mz-ajuste',k)}
-      var corta=lineasDe(el)>max;
+      while((lineasDe(el)>max||el.scrollWidth>el.clientWidth+1)&&k>min+1e-6){k=Math.round((k-.03)*100)/100;el.style.setProperty('--mz-ajuste',k)}
+      var corta=lineasDe(el)>max||el.scrollWidth>el.clientWidth+1;
       if(corta){el.setAttribute('data-recortado','1');el.style.webkitLineClamp=max}
       if(k<1||corta)avisos.push({texto:el.textContent,escala:k,recortado:corta});
     });

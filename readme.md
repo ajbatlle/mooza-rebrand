@@ -9,6 +9,7 @@ La semana es la grilla: siete columnas, una por día. Cada pieza se arma sobre e
 - Español, con tuteo ("mira", "ven", "guarda tu plan"). Sin voseo y sin emoji.
 - Directo, seco y simple. Frases cortas: la pieza dice poco y el evento dice el resto. Sin exclamaciones, sin tecnicismos y sin eslóganes.
 - Titulares con mayúscula inicial y el resto en minúscula salvo nombres propios: "Agenda cultural", "Esta semana pasan cosas", "Esta semana sales".
+- Una palabra conectora (artículo, preposición o conjunción: de, la, y, en, con…) nunca queda sola ni al final de una línea. El generador la pega a la palabra que sigue, y si el dato trae un salto de línea justo después de un conector, el corte pasa a antes de él: "Carteleras / de noviembre", nunca "Carteleras de / noviembre" ni "Carteleras / de / noviembre".
 - Nombres de evento, sala y artista con mayúscula inicial: "Cuarteto de jazz en vivo", "Bar La Otra Casa", "Alejandro Sanz".
 - Etiquetas de categoría con mayúscula inicial: Música, Teatro, Danza, Letras. Los días también: "Sábado".
 - Fechas: "26 oct – 1 nov", con mes abreviado en minúscula y raya corta con espacios. El rango corto grande se escribe "26–1".

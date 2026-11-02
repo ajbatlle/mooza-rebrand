@@ -50,6 +50,9 @@ const PREVIEW = 'file://' + path.resolve(path.dirname(fileURLToPath(import.meta.
     const textos=[...el.querySelectorAll('.mz-t-display,.mz-t-grande,.mz-t-titular,.mz-t-sub,.mz-t-texto,.mz-t-dato,.mz-t-micro,.mz-hora,.mz-dc b,.mz-ev-k,.mz-ev-t,.mz-ev-l')].filter(x=>!x.classList.contains('mz-fecha-pie'));
     const bloques=[...el.querySelectorAll('.mz-ph,.mz-dc')];
     const tag=`${tipo}/${f} ${nom} m${m} g${g}`;
+    // una palabra conectora nunca queda suelta: siempre va pegada a la siguiente con un espacio de no separación
+    const CON='a|al|ante|bajo|con|contra|de|del|desde|durante|e|el|en|entre|hacia|hasta|la|las|lo|los|mediante|ni|o|para|por|que|según|sin|sobre|su|sus|tras|u|un|una|unos|unas|y';
+    el.querySelectorAll('.mz-grid *').forEach(n=>{if(n.children.length&&![...n.childNodes].some(c=>c.nodeType===3&&c.textContent.trim()))return;const t=[...n.childNodes].filter(c=>c.nodeType===3).map(c=>c.textContent).join('|');if(new RegExp('(^|[ |])('+CON+') +(?=[^ |])','i').test(t))out.push(tag+': conector suelto en «'+t.slice(0,40)+'»')});
     const L=logo&&rect(logo);
     if(L){
       for(const t of textos) if(tinta(t).some(r=>hit(L,r))) out.push(tag+': logo choca con texto '+t.className);
