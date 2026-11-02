@@ -284,21 +284,29 @@
   /* cartelera: la lámina de una cartelera del mes, con mucha información. Arriba, sobre el color, el nombre de la cartelera: en tamaño grande si tiene hasta diez letras y en titular, hasta dos líneas, si es más largo.
      Abajo, sobre gris, el mes y la página, y hasta diez eventos en dos columnas (la 1 a la 3 y la 5 a la 7), uno por fila y con una línea fina arriba.
      Con bajada, la quinta fila de cada columna se la lleva y caben ocho. Sin ilustración: la musa no va en esta lámina (ver "Ilustración" en el readme).
-     datos.cartelera = {titulo, mes, pag, bajada, pie, vineta:{src, alt}, eventos:[{k, t, l, h}]}
+     datos.cartelera = {titulo, mes, pag, bajada, pie, vineta:{src, alt, en, ancla}, eventos:[{k, t, l, h}]}
        k  la línea de arriba: día y, si hace falta, categoría ("Martes 17 · Música")
        t  el nombre del evento, hasta dos líneas
        l  el lugar; h, la hora */
   function cartelera(d,n,f){
-    var c=d.cartelera,k=tinta(d,'azul'),tope=c.bajada?4:5,por=Math.min(tope,Math.ceil((c.eventos||[]).length/2)),
-        h=zonaA(2,campo(d,'azul'))+fondo(d,f,[0,0,100,yZona(d,f,n,2,true)],'azul')+
-          cell(1,7,1,2,(String(c.titulo||'').length<=10?'mz-t-grande':'mz-t-titular')+' mz-cart-t'+k,tx(c.titulo),'',' data-lineas="'+(String(c.titulo||'').length<=10?1:2)+'"')+
-          cell(1,4,3,3,'mz-t-dato mz-cart-mes',tx(c.mes))+cell(5,7,3,3,'mz-t-dato mz-cart-mes mz-cart-pag',tx(c.pag));
+    var c=d.cartelera,k=tinta(d,'azul'),v=c.vineta&&c.vineta.src?c.vineta:null,
+        /* en el banner: la viñeta va en tinta azul, así que el banner no puede ser azul; el banner gana una fila */
+        enBanner=!!(v&&v.en==='banner'&&d.color&&d.color!=='azul'),ban=enBanner?3:2,ev0=ban+2,
+        arriba=enBanner&&v.ancla==='arriba',
+        tope=n-1-ev0+1-(c.bajada?1:0),por=Math.min(tope,Math.ceil((c.eventos||[]).length/2)),
+        corto=String(c.titulo||'').length<=10,
+        img=v?'<img src="'+esc(v.src)+'" alt="'+esc(v.alt||'')+'">':'',
+        h=zonaA(ban,campo(d,'azul'))+fondo(d,f,[0,0,100,yZona(d,f,n,ban,true)],'azul')+
+          (arriba?cell(1,7,1,1,'mz-vineta mz-vineta-arriba',img):'')+
+          cell(1,7,arriba?2:1,enBanner&&!arriba?ban-1:ban,(corto?'mz-t-grande':'mz-t-titular')+' mz-cart-t'+k,tx(c.titulo),'',' data-lineas="'+(corto?1:2)+'"')+
+          cell(1,4,ban+1,ban+1,'mz-t-dato mz-cart-mes',tx(c.mes))+cell(5,7,ban+1,ban+1,'mz-t-dato mz-cart-mes mz-cart-pag',tx(c.pag));
+    if(enBanner&&!arriba)h+=cell(1,7,ban-1,ban,'mz-vineta mz-vineta-abajo',img);
     (c.eventos||[]).slice(0,tope*2).forEach(function(e,i){
-      var col=i<por?1:5,r=4+i%por;
+      var col=i<por?1:5,r=ev0+i%por;
       h+=cell(col,col+2,r,r,'mz-ev','<span class="mz-ev-k">'+tx(e.k)+'</span><span class="mz-ev-t" data-lineas="2">'+tx(e.t)+'</span><span class="mz-ev-l">'+tx([e.l,e.h].filter(Boolean).join(' • '))+'</span>');
     });
-    /* viñeta opcional (kit/ilustraciones/vinetas): solo si quedan libres las dos últimas filas, es decir, hasta seis eventos y sin bajada */
-    if(c.vineta&&c.vineta.src&&por<=3&&!c.bajada)h+=cell(1,7,n-2,n-1,'mz-vineta','<img src="'+esc(c.vineta.src)+'" alt="'+esc(c.vineta.alt||'')+'">');
+    /* viñeta opcional (kit/ilustraciones/vinetas), a sangre. Por defecto va en las dos últimas filas si quedan libres (hasta seis eventos y sin bajada) */
+    if(v&&!enBanner&&por<=3&&!c.bajada)h+=cell(1,7,n-2,n-1,'mz-vineta',img);
     if(c.bajada)h+=cell(1,7,8,8,'mz-t-dato mz-cart-baj',tx(c.bajada),'',' data-lineas="2"');
     return grid(n,h+pie(n,tx(c.pie||'mooza.cl')));
   }

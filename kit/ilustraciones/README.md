@@ -14,9 +14,9 @@ La lámina con el logo y mooza.cl se genera con `MoozaPoster.mount(el, 'musa', {
 
 ## Viñetas
 
-Cuatro frisos horizontales opcionales, en el mismo grabado pero más livianos: la ciudad (dónde), la cinta (cuándo), el telón (empieza la función) y el público (ir con otros). Los prompts están en `prompts-vinetas.md`.
+Tres frisos horizontales opcionales, en el mismo grabado pero más livianos: la cinta (cuándo), el telón (empieza la función) y el público (ir con otros). Los prompts están en `prompts-vinetas.md`.
 
-- `vinetas/originales/`: los dibujos tal como salieron de ChatGPT, negro sobre blanco (`ciudad.png`, `cinta.png`, `telon.png`, `publico.png`).
+- `vinetas/originales/`: los dibujos tal como salieron de ChatGPT, negro sobre blanco (`cinta.png`, `telon.png`, `publico.png`).
 - `vinetas/sin-fondo/`: los mismos en el azul `#1b1444`, con transparencia y recortados a la franja del dibujo, de 2000 px de ancho. Son los que usa el generador.
 
-Reglas: una por lámina de cartelera, solo en las dos últimas filas libres (hasta seis eventos y sin bajada), sobre el gris y en tinta azul. Nunca en el banner, sobre texto o sobre una zona de color. Se piden con `datos.cartelera.vineta = {src, alt}`.
+Reglas: una por lámina de cartelera, a sangre, abajo sobre el gris o en un banner amarillo o naranjo. Nunca sobre banner azul ni sobre texto. Se piden con `datos.cartelera.vineta = {src, alt, en, ancla}`.

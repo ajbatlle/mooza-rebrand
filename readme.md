@@ -100,12 +100,13 @@ La musa va solo en el diseño `musa` y como respaldo en una celda de color cuand
 
 ### Viñetas
 
-Cuatro frisos horizontales, en el mismo grabado de línea fina de las musas pero más livianos, que dicen otra cosa: la ciudad (dónde), la cinta (cuándo), el telón (empieza la función) y el público (ir con otros). Sirven para rellenar un espacio vacío, y solo si se quiere. Están en `kit/ilustraciones/vinetas/`: `originales/` (negro sobre blanco) y `sin-fondo/` (PNG en tinta azul con transparencia, 2000 px de ancho).
+Tres frisos horizontales, en el mismo grabado de línea fina de las musas pero más livianos, que dicen otra cosa: la cinta (cuándo), el telón (empieza la función) y el público (ir con otros). Sirven para rellenar un espacio vacío, y solo si se quiere. Están en `kit/ilustraciones/vinetas/`: `originales/` (negro sobre blanco) y `sin-fondo/` (PNG en tinta azul con transparencia, 2000 px de ancho).
 
-Reglas:
-- Una viñeta por lámina, solo en `cartelera`, solo cuando quedan libres las dos últimas filas (hasta seis eventos y sin bajada). Ocupa las siete columnas y esas dos filas, centrada entre la lista y el pie.
-- Es la única ilustración que va sobre el gris. Nunca en el banner, nunca sobre texto, nunca sobre una zona de color y nunca en blanco o invertida.
-- Se pide con `datos.cartelera.vineta = {src, alt}`. Si no hay espacio, no se dibuja.
+Van siempre a sangre, de borde a borde del cartel, como las zonas de color, y solo en `cartelera`. Se piden con `datos.cartelera.vineta = {src, alt, en, ancla}` y hay dos lugares:
+- Abajo, sobre el gris (por defecto): las dos últimas filas, entre la lista y el pie, centrada. Solo si quedan libres: hasta seis eventos y sin bajada.
+- En el banner (`en: 'banner'`), solo si el banner es amarillo o naranjo, porque la tinta azul se pierde sobre azul. El banner gana una fila y caben hasta ocho eventos. El telón (`ancla: 'arriba'`) cuelga del borde de arriba y el nombre queda debajo. El público (`ancla: 'abajo'`) se apoya en el corte con el gris, bajo el nombre. La cinta flota y se ve mejor abajo, sobre el gris.
+
+Reglas: una viñeta por lámina. Nunca sobre texto, nunca sobre un banner azul y nunca en blanco o invertida. Es la única ilustración que va sobre el gris. La prohibición de la musa en el banner no la alcanza: la viñeta sí puede ir en el banner, con esas condiciones.
 
 ### Poleras
 
